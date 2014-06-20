@@ -15,7 +15,7 @@
     :builds [{:id "eon"
               :source-paths ["src"]
               :compiler {
-                :output-to "resources/public/js/compiled/eon.js"
-                :output-dir "resources/public/js/compiled/out"
+                :output-to "resources/public/js/eon.js"
+                :output-dir "resources/public/js/out"
                 :optimizations :none
                 :source-map true}}]})
