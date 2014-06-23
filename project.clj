@@ -2,8 +2,8 @@
   :description "A game that teaches Clojure evaluation."
   :url "http://mikejanger.net"
 
-  :dependencies [[org.clojure/clojure "1.5.1"]
-                [org.clojure/clojurescript "0.0-2197"]
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                [org.clojure/clojurescript "0.0-2202"]
                 [figwheel "0.1.3-SNAPSHOT"]]
 
   :plugins [[lein-cljsbuild "1.0.3"]
