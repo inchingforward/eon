@@ -1,4 +1,16 @@
 body {
     font-family: georgia, serif;
-    font-size: 22pt;
+}
+
+h1 {
+  font-size: 17pt;
+}
+
+#world {
+  position: absolute;
+  top: 10%;
+  left: 30%;
+  background-color: #ccc;
+  width: 400px;
+  height: 500px;
 }
