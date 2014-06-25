@@ -1,5 +1,7 @@
 (ns eon.core
-  (:require [figwheel.client :as fw]))
+  (:require [figwheel.client :as fw]
+            [om.core :as om :include-macros true]
+            [om.dom :as dom :include-macros true]))
 
 (enable-console-print!)
 
@@ -8,4 +10,12 @@
                     ;; (stop-and-start-my app)
                     ))
 
-(println "Hello eon!")
+(defn widget [data owner]
+  (reify
+    om/IRender
+    (render [this]
+      (dom/h1 nil (:text data)))))
+
+(om/root widget {:text "Eon!"}
+  {:target (. js/document (getElementById "app"))})
+

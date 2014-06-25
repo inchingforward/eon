@@ -6,11 +6,12 @@ h1 {
   font-size: 17pt;
 }
 
-#world {
+#app {
   position: absolute;
   top: 10%;
   left: 30%;
   background-color: #ccc;
   width: 400px;
   height: 500px;
+  padding: 0 10px;
 }
