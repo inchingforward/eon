@@ -10,6 +10,10 @@
                     ;; (stop-and-start-my app)
                     ))
 
+(def initial-state {:level 1})
+
+(defonce game-state (atom initial-state))
+
 (defn widget [data owner]
   (reify
     om/IRender
