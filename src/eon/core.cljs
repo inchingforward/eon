@@ -10,15 +10,23 @@
                     ;; (stop-and-start-my app)
                     ))
 
-(def initial-state {:level 1})
+(def initial-state {:level 1
+                    :forms []})
 
 (defonce game-state (atom initial-state))
+
+(defn change-level []
+  (js/alert "Testing"))
 
 (defn widget [data owner]
   (reify
     om/IRender
     (render [this]
-      (dom/h1 nil (:text data)))))
+      (dom/div nil
+        (dom/h1 nil (str "Level " (:level @game-state)))
+        (dom/button
+           #js {:onClick change-level}
+           "Change level")))))
 
 (om/root widget {:text "Eon!"}
   {:target (. js/document (getElementById "app"))})
