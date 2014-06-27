@@ -18,6 +18,12 @@
 (defn change-level []
   (js/alert "Testing"))
 
+(defn make-form-question []
+  {:question "(+ 1 2)"
+   :answer 3
+   :answered? false
+   :points 100})
+
 (defn widget [data owner]
   (reify
     om/IRender
