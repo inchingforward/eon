@@ -18,11 +18,15 @@
 (defn change-level []
   (js/alert "Testing"))
 
-(defn make-form-question []
-  {:question "(+ 1 2)"
-   :answer 3
-   :answered? false
-   :points 100})
+(defn make-arith-question []
+  (let [operators {"+" + "-" - "*" * "/" /}
+        op-key (rand-nth (keys operators))
+        num1   (rand-int 10)
+        num2   (rand-int 10)]
+    {:question   (str "(" op-key " " num1 " " num2 ")")
+     :answer     ((get operators op-key) num1 num2)
+     :answered?  false
+     :points     100}))
 
 (defn widget [data owner]
   (reify
@@ -30,10 +34,10 @@
     (render [this]
       (dom/div nil
         (dom/h1 nil (str "Level " (:level @game-state)))
+        (dom/h1 nil (str (:question data) " = " (:answer data)))
         (dom/button
            #js {:onClick change-level}
            "Change level")))))
 
-(om/root widget {:text "Eon!"}
+(om/root widget (make-arith-question)
   {:target (. js/document (getElementById "app"))})
-
