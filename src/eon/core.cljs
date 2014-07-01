@@ -1,7 +1,8 @@
 (ns eon.core
   (:require [figwheel.client :as fw]
             [om.core :as om :include-macros true]
-            [om.dom :as dom :include-macros true]))
+            [om.dom :as dom :include-macros true]
+            [eon.levels :as levels]))
 
 (enable-console-print!)
 
@@ -39,5 +40,6 @@
            #js {:onClick change-level}
            "Change level")))))
 
-(om/root widget (make-arith-question)
+(om/root widget ((:fn levels/level-1))
   {:target (. js/document (getElementById "app"))})
+
