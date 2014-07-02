@@ -13,5 +13,14 @@
 (def level-1
   {:level 1
    :title "Level 1"
-   :notes "Baby's first evaluation"
-   :fn make-arith-question})
+   :notes "Arithmetic"
+   :make-question make-arith-question})
+
+(def levels
+  {1 level-1})
+
+(defn make-level [level-num]
+  (let [level (get levels level-num)]
+    (merge level {:questions (repeatedly 10 (:make-question level))})))
+
+(.log js/console (:questions (make-level 1)))
