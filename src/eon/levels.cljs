@@ -22,5 +22,3 @@
 (defn make-level [level-num]
   (let [level (get levels level-num)]
     (merge level {:questions (repeatedly 10 (:make-question level))})))
-
-(.log js/console (:questions (make-level 1)))
