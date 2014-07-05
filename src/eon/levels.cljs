@@ -1,5 +1,17 @@
 (ns eon.levels)
 
+(defn make-basic-question []
+  {:question "hello"
+   :answer "hello"
+   :answered? false
+   :points 100})
+
+(def level-1
+  {:level 1
+   :title "Level 1"
+   :notes "Basics"
+   :question-fn make-basic-question})
+
 (defn make-arith-question []
   (let [operators {"+" + "-" - "*" * "/" /}
         op-key (rand-nth (keys operators))
@@ -10,14 +22,15 @@
      :answered?  false
      :points     100}))
 
-(def level-1
-  {:level 1
-   :title "Level 1"
+(def level-2
+  {:level 2
+   :title "Level 2"
    :notes "Arithmetic"
    :question-fn make-arith-question})
 
 (def levels
-  {1 level-1})
+  {1 level-1
+   2 level-2})
 
 (defn make-level [level-num]
   (let [level (get levels level-num)]

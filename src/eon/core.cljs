@@ -13,17 +13,17 @@
 
 (def initial-state (levels/make-level 1))
 
-(defonce game-state (atom initial-state))
+(def game-state (atom initial-state))
 
 (defn change-level []
-  (js/alert "Testing"))
+  (swap! game-state assoc :level 2))
 
 (defn widget [data owner]
   (reify
     om/IRender
     (render [this]
       (dom/div nil
-        (dom/h1 nil (str "Level " (:level data) ": " (:notes @game-state)))
+        (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state)))
         (dom/h1 nil (str (:question (first (:questions @game-state))) " = "
                          (:answer   (first (:questions @game-state)))))
         (dom/button
