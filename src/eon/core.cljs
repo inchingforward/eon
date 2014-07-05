@@ -16,20 +16,41 @@
 (def game-state (atom initial-state))
 
 (defn change-level []
-  (swap! game-state assoc :level 2))
+  (swap! game-state merge (levels/make-level 2)))
 
-(defn widget [data owner]
-  (reify
-    om/IRender
-    (render [this]
+(defn change-question []
+  (swap! game-state assoc :curr-question (inc (:curr-question @game-state))))
+
+(defn get-question []
+  (:question (nth (:questions @game-state)
+                  (:curr-question @game-state))))
+
+(defn get-answer []
+  (:answer (nth (:questions @game-state)
+                (:curr-question @game-state))))
+
+(defn log []
+  (.log js/console (str @game-state)))
+
+(om/root
+  (fn [app owner]
+    (om/component
       (dom/div nil
         (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state)))
-        (dom/h1 nil (str (:question (first (:questions @game-state))) " = "
-                         (:answer   (first (:questions @game-state)))))
+        (dom/h1 nil (str (get-question) " = "
+                         (get-answer)))
+        (dom/button
+           #js {:onClick change-question}
+           "Change question")
         (dom/button
            #js {:onClick change-level}
-           "Change level")))))
-
-(om/root widget nil
+           "Change level")
+        (dom/button
+           #js {:onClick #(swap! game-state merge (levels/make-level 1))}
+           "Reset")
+        (dom/button
+           #js {:onClick log}
+           "Log"))))
+  game-state
   {:target (. js/document (getElementById "app"))})
 
