@@ -29,30 +29,38 @@
   (:answer (nth (:questions @game-state)
                 (:curr-question @game-state))))
 
-(defn log []
-  (.log js/console (str @game-state)))
+(defn answer-question [app owner]
+  (let [node (om/get-node owner "answer")
+        answer (.-value node)]
+    (.log js/console (str "entered answer: '" answer "'"))))
 
 (om/root
   (fn [app owner]
     (om/component
       (dom/div nil
-        (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state)))
-        (dom/h1 nil (str (get-question) " = "
-                         (get-answer)))
-        (dom/input nil)
-        (dom/button nil "Answer")
-        (dom/button
-           #js {:onClick change-question}
-           "Change question")
-        (dom/button
-           #js {:onClick change-level}
-           "Change level")
-        (dom/button
-           #js {:onClick #(swap! game-state merge (levels/make-level 1))}
-           "Reset")
-        (dom/button
-           #js {:onClick log}
-           "Log"))))
+        (dom/div #js {:id "level-box"}
+          (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state))))
+        (dom/div #js {:id "question-box"}
+          (dom/h1 nil (str (get-question) " = "
+                           (get-answer))))
+        (dom/div #js {:id "answer-box"}
+          (dom/input #js {:type "text" :ref "answer" :id "answer"})
+          (dom/button
+            #js {:onClick #(answer-question app owner)}
+            "Answer"))
+        (dom/div #js {:id "debug-box"}
+          (dom/button
+            #js {:onClick change-question}
+            "Change question")
+          (dom/button
+            #js {:onClick change-level}
+            "Change level")
+          (dom/button
+            #js {:onClick #(swap! game-state merge (levels/make-level 1))}
+            "Reset")
+          (dom/button
+            #js {:onClick #(.log js/console (str @game-state))}
+            "Log State")))))
   game-state
   {:target (. js/document (getElementById "app"))})
 

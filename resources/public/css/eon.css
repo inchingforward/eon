@@ -15,3 +15,17 @@ h1 {
   height: 500px;
   padding: 0 10px;
 }
+
+#level-box h1 {
+  font-size: 24pt;
+}
+
+#question-box {}
+
+#answer-box {
+  margin-top: 40px;
+}
+
+#debug-box {
+  margin-top: 40px;
+}
