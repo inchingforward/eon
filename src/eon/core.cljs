@@ -39,6 +39,8 @@
         (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state)))
         (dom/h1 nil (str (get-question) " = "
                          (get-answer)))
+        (dom/input nil)
+        (dom/button nil "Answer")
         (dom/button
            #js {:onClick change-question}
            "Change question")
