@@ -18,7 +18,7 @@
 (defn change-level []
   (swap! game-state merge (levels/make-level 2)))
 
-(defn change-question []
+(defn advance-question []
   (swap! game-state assoc :curr-question (inc (:curr-question @game-state))))
 
 (defn get-question []
@@ -29,12 +29,21 @@
   (:answer (nth (:questions @game-state)
                 (:curr-question @game-state))))
 
-(defn answer-question [app owner]
+(defn answer-question [node answer-attempt answer]
+  (set! (.-value node) "")
+  (advance-question))
+
+(defn fail-question [node answer-attempt answer]
+  (.select node)
+  (.log js/console (str "the correct answer is " answer )))
+
+(defn attempt-answer-question [app owner]
   (let [node (om/get-node owner "answer")
-        answer (.-value node)]
-    (if (= answer (str (get-answer)))
-      (change-question)
-      (.log js/console (str "the correct answer is " answer )))))
+        answer-attempt (.-value node)
+        answer (str (get-answer))]
+    (if (= answer answer-attempt)
+      (answer-question node answer-attempt answer)
+      (fail-question node answer-attempt answer))))
 
 (om/root
   (fn [app owner]
@@ -45,14 +54,12 @@
         (dom/div #js {:id "question-box"}
           (dom/h1 nil (str (get-question))))
         (dom/div #js {:id "answer-box"}
-          (dom/input #js {:type "text" :ref "answer" :id "answer"})
-          (dom/button
-            #js {:onClick #(answer-question app owner)}
-            "Answer"))
+          (dom/input #js {:type "text" :ref "answer" :id "answer"
+                          :spellCheck "false"
+                          :autoComplete "off"
+                          :onKeyPress #(when (== (.-keyCode %) 13)
+                                (attempt-answer-question app owner))}))
         (dom/div #js {:id "debug-box"}
-          (dom/button
-            #js {:onClick change-question}
-            "Change question")
           (dom/button
             #js {:onClick change-level}
             "Change level")
