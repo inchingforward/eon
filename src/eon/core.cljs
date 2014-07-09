@@ -32,7 +32,9 @@
 (defn answer-question [app owner]
   (let [node (om/get-node owner "answer")
         answer (.-value node)]
-    (.log js/console (str "entered answer: '" answer "'"))))
+    (if (= answer (str (get-answer)))
+      (change-question)
+      (.log js/console (str "the correct answer is " answer )))))
 
 (om/root
   (fn [app owner]
@@ -41,8 +43,7 @@
         (dom/div #js {:id "level-box"}
           (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state))))
         (dom/div #js {:id "question-box"}
-          (dom/h1 nil (str (get-question) " = "
-                           (get-answer))))
+          (dom/h1 nil (str (get-question))))
         (dom/div #js {:id "answer-box"}
           (dom/input #js {:type "text" :ref "answer" :id "answer"})
           (dom/button

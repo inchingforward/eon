@@ -1,7 +1,7 @@
 (ns eon.levels)
 
 (defn make-basic-question []
-  (let [q-a (rand-nth ["'test'" 1 \A 2048 :key-word "'hello'"])]
+  (let [q-a (rand-nth ["\"test\"" 1 \A 2048 :key-word "\"hello\""])]
     {:question q-a
      :answer q-a
      :answered? false
