@@ -15,7 +15,7 @@
 
 (def game-state (atom initial-state))
 
-(defn change-level []
+(defn advance-level []
   (swap! game-state merge (levels/make-level 2)))
 
 (defn advance-question []
@@ -29,9 +29,14 @@
   (:answer (nth (:questions @game-state)
                 (:curr-question @game-state))))
 
+(defn has-more-questions []
+  (< (:curr-question @game-state) 9))
+
 (defn answer-question [node answer-attempt answer]
   (set! (.-value node) "")
-  (advance-question))
+  (if (has-more-questions)
+    (advance-question)
+    (advance-level)))
 
 (defn fail-question [node answer-attempt answer]
   (.select node)
@@ -52,7 +57,7 @@
         (dom/div #js {:id "level-box"}
           (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state))))
         (dom/div #js {:id "question-box"}
-          (dom/h1 nil (str (get-question))))
+          (dom/h1 nil (str (inc (:curr-question @game-state)) " " (get-question))))
         (dom/div #js {:id "answer-box"}
           (dom/input #js {:type "text" :ref "answer" :id "answer"
                           :spellCheck "false"
@@ -61,7 +66,7 @@
                                 (attempt-answer-question app owner))}))
         (dom/div #js {:id "debug-box"}
           (dom/button
-            #js {:onClick change-level}
+            #js {:onClick advance-level}
             "Change level")
           (dom/button
             #js {:onClick #(swap! game-state merge (levels/make-level 1))}
