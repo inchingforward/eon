@@ -50,30 +50,35 @@
       (answer-question node answer-attempt answer)
       (fail-question node answer-attempt answer))))
 
-(om/root
-  (fn [app owner]
-    (om/component
-      (dom/div nil
-        (dom/div #js {:id "level-box"}
-          (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state))))
-        (dom/div #js {:id "question-box"}
-          (dom/h1 nil (str (inc (:curr-question @game-state)) " " (get-question))))
-        (dom/div #js {:id "answer-box"}
-          (dom/input #js {:type "text" :ref "answer" :id "answer"
-                          :spellCheck "false"
-                          :autoComplete "off"
-                          :onKeyPress #(when (== (.-keyCode %) 13)
-                                (attempt-answer-question app owner))}))
-        (dom/div #js {:id "debug-box"}
-          (dom/button
-            #js {:onClick advance-level}
-            "Change level")
-          (dom/button
-            #js {:onClick #(swap! game-state merge (levels/make-level 1))}
-            "Reset")
-          (dom/button
-            #js {:onClick #(.log js/console (str @game-state))}
-            "Log State")))))
-  game-state
+(defn eon-view [app owner]
+  (reify
+    om/IRender
+      (render [this]
+        (dom/div nil
+          (dom/div #js {:id "level-box"}
+            (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state))))
+          (dom/div #js {:id "question-box"}
+            (dom/h1 nil (str (inc (:curr-question @game-state)) " " (get-question))))
+          (dom/div #js {:id "answer-box"}
+            (dom/input #js {:type "text" :ref "answer" :id "answer"
+                            :spellCheck "false"
+                            :autoComplete "off"
+                            :onKeyPress #(when (== (.-keyCode %) 13)
+                                  (attempt-answer-question app owner))}))
+          (dom/div #js {:id "debug-box"}
+            (dom/button
+              #js {:onClick advance-level}
+              "Change level")
+            (dom/button
+              #js {:onClick #(swap! game-state merge (levels/make-level 1))}
+              "Reset")
+            (dom/button
+              #js {:onClick #(.log js/console (str @game-state))}
+              "Log State"))))
+     om/IDidMount
+      (did-mount [this]
+        (.focus (om/get-node owner "answer")))))
+
+(om/root eon-view game-state
   {:target (. js/document (getElementById "app"))})
 
