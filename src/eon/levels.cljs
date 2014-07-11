@@ -1,5 +1,7 @@
 (ns eon.levels)
 
+(def questions-per-level 5)
+
 (defn make-basic-question []
   (let [q-a (rand-nth ["\"test\"" 1 "\\A" 2048 :key-word "\"hello\""])]
     {:question q-a
@@ -37,4 +39,5 @@
 
 (defn make-level [level-num]
   (let [level (get levels level-num)]
-    (merge level {:questions (repeatedly 10 (:question-fn level))})))
+    (merge level {:questions (repeatedly questions-per-level
+                                         (:question-fn level))})))
