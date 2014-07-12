@@ -11,7 +11,7 @@
                     ;; (stop-and-start-my app)
                     ))
 
-(def initial-state (levels/make-level 1))
+(def initial-state (merge (levels/make-level 1) {:player-answer ""}))
 
 (def game-state (atom initial-state))
 
@@ -51,16 +51,25 @@
       (answer-question node answer-attempt answer)
       (fail-question node answer-attempt answer))))
 
+(defn key-entered [keyCode]
+  (let [char   (.fromCharCode js/String keyCode)
+        answer (str (get-answer))]
+    (swap! game-state assoc :player-answer (str (:player-answer @game-state) char))
+    (.log js/console (str keyCode " entered (" char ")"))
+    (if (= answer (:player-answer @game-state))
+      (advance-question))))
+
 (defn eon-view [app owner]
   (reify
     om/IRender
       (render [this]
-        (dom/div nil
+        (dom/div #js {:onKeyPress #(key-entered (.-keyCode %))}
           (dom/div #js {:id "level-box"}
             (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state))))
           (dom/div #js {:id "question-box"}
             (dom/h1 nil (str (get-question))))
           (dom/div #js {:id "answer-box"}
+            (dom/h2 #js {:id "answer-display"} (:player-answer @game-state))
             (dom/input #js {:type "text" :ref "answer" :id "answer"
                             :spellCheck "false"
                             :autoComplete "off"
