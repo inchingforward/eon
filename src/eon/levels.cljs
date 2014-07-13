@@ -39,5 +39,6 @@
 
 (defn make-level [level-num]
   (let [level (get levels level-num)]
-    (merge level {:questions (repeatedly questions-per-level
-                                         (:question-fn level))})))
+    (merge level
+           {:questions
+             (take questions-per-level (repeatedly (:question-fn level)))})))

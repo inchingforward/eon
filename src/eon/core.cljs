@@ -33,43 +33,39 @@
   (< (:curr-question @game-state)
      (dec levels/questions-per-level)))
 
-(defn answer-question [node answer-attempt answer]
-  (set! (.-value node) "")
+(defn answer-question [owner]
   (if (has-more-questions)
     (advance-question)
     (advance-level)))
 
-(defn fail-question [node answer-attempt answer]
-  (.select node)
-  (.log js/console (str "the correct answer is " answer )))
-
 (defn attempt-answer-question [app owner]
-  (let [node (om/get-node owner "answer")
-        answer-attempt (.-value node)
-        answer (str (get-answer))]
-    (if (= answer answer-attempt)
-      (answer-question node answer-attempt answer)
-      (fail-question node answer-attempt answer))))
+  (let [actual-answer (str (get-answer))
+        player-answer (:player-answer @game-state)]
+    (swap! game-state assoc :player-answer "")
+    (when (== actual-answer player-answer)
+      (answer-question owner))))
 
-(defn key-entered [keyCode]
+(defn key-entered [keyCode app owner]
   (let [char   (.fromCharCode js/String keyCode)
         answer (str (get-answer))]
-    (swap! game-state assoc :player-answer (str (:player-answer @game-state) char))
-    (.log js/console (str keyCode " entered (" char ")"))
-    (if (= answer (:player-answer @game-state))
-      (advance-question))))
+    (.log js/console keyCode)
+    (if (== 13 keyCode)
+      (attempt-answer-question app owner)
+      (swap! game-state assoc :player-answer
+             (str (:player-answer @game-state) char)))))
 
 (defn eon-view [app owner]
   (reify
     om/IRender
       (render [this]
-        (dom/div #js {:onKeyPress #(key-entered (.-keyCode %))}
+        (dom/div #js {:onKeyPress #(key-entered (.-keyCode %) app owner)}
           (dom/div #js {:id "level-box"}
             (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state))))
           (dom/div #js {:id "question-box"}
             (dom/h1 nil (str (get-question))))
           (dom/div #js {:id "answer-box"}
-            (dom/h2 #js {:id "answer-display"} (:player-answer @game-state))
+            (dom/h2 #js {:ref "answer-display" :id "answer-display"}
+                    (:player-answer @game-state))
             (dom/input #js {:type "text" :ref "answer" :id "answer"
                             :spellCheck "false"
                             :autoComplete "off"
