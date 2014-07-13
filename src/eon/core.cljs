@@ -48,7 +48,6 @@
 (defn key-entered [keyCode app owner]
   (let [char   (.fromCharCode js/String keyCode)
         curr-answer (:player-answer @game-state)]
-    (.log js/console keyCode)
     (case keyCode
       13 (attempt-answer-question app)
       8  (swap! game-state assoc :player-answer
