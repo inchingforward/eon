@@ -26,7 +26,15 @@ h1 {
   height: 100px;
 }
 
-/*#answer { display: none; }*/
+#app-world {
+  outline: none;
+  padding: 20px;
+}
+
+#app-world:focus {
+  background-color: #eee;
+  border: 1px solid #ddd;
+}
 
 #answer-display {
   height: 22px;

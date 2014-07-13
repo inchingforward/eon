@@ -47,30 +47,30 @@
 
 (defn key-entered [keyCode app owner]
   (let [char   (.fromCharCode js/String keyCode)
-        answer (str (get-answer))]
+        curr-answer (:player-answer @game-state)]
     (.log js/console keyCode)
-    (if (== 13 keyCode)
-      (attempt-answer-question app owner)
-      (swap! game-state assoc :player-answer
-             (str (:player-answer @game-state) char)))))
+    (case keyCode
+      13 (attempt-answer-question app)
+      8  (swap! game-state assoc :player-answer
+                (subs curr-answer 0 (dec (.-length curr-answer))))
+         (swap! game-state assoc :player-answer
+                (str curr-answer char)))))
 
 (defn eon-view [app owner]
   (reify
     om/IRender
       (render [this]
-        (dom/div #js {:onKeyPress #(key-entered (.-keyCode %) app owner)}
+        (dom/div #js {:ref "app-world"
+                      :id "app-world"
+                      :tabIndex 0
+                      :onKeyPress #(key-entered (.-keyCode %) app owner)}
           (dom/div #js {:id "level-box"}
             (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state))))
           (dom/div #js {:id "question-box"}
             (dom/h1 nil (str (get-question))))
           (dom/div #js {:id "answer-box"}
             (dom/h2 #js {:ref "answer-display" :id "answer-display"}
-                    (:player-answer @game-state))
-            (dom/input #js {:type "text" :ref "answer" :id "answer"
-                            :spellCheck "false"
-                            :autoComplete "off"
-                            :onKeyPress #(when (== (.-keyCode %) 13)
-                                  (attempt-answer-question app owner))}))
+                    (:player-answer @game-state)))
           (dom/div #js {:id "tool-box"}
             (dom/button
               #js {:onClick advance-level}
@@ -86,7 +86,7 @@
             (dom/h4 #js {:id "debug" :ref "debug"} ""))))
      om/IDidMount
       (did-mount [this]
-        (.focus (om/get-node owner "answer")))))
+        (.focus (om/get-node owner "app-world")))))
 
 (om/root eon-view game-state
   {:target (. js/document (getElementById "app"))})
