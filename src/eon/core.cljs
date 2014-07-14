@@ -16,7 +16,7 @@
 (def game-state (atom initial-state))
 
 (defn advance-level []
-  (swap! game-state merge (levels/make-level 2)))
+  (swap! game-state merge (levels/make-level (inc (:level @game-state)))))
 
 (defn advance-question []
   (swap! game-state assoc :curr-question (inc (:curr-question @game-state))))
@@ -49,7 +49,7 @@
   (let [char   (.fromCharCode js/String keyCode)
         curr-answer (:player-answer @game-state)]
     (case keyCode
-      13 (attempt-answer-question app)
+      13 (attempt-answer-question app owner)
       8  (swap! game-state assoc :player-answer
                 (subs curr-answer 0 (dec (.-length curr-answer))))
          (swap! game-state assoc :player-answer
@@ -64,7 +64,7 @@
                       :tabIndex 0
                       :onKeyPress #(key-entered (.-keyCode %) app owner)}
           (dom/div #js {:id "level-box"}
-            (dom/h1 nil (str "Level " (:level @game-state) ": " (:notes @game-state))))
+            (dom/h1 nil (str (:level @game-state) ": " (:title @game-state))))
           (dom/div #js {:id "question-box"}
             (dom/h1 nil (str (get-question))))
           (dom/div #js {:id "answer-box"}

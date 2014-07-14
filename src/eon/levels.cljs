@@ -3,7 +3,7 @@
 (def questions-per-level 5)
 
 (defn make-basic-question []
-  (let [q-a (rand-nth ["\"test\"" 1 "\\a" 2048 :key-word "\"hello\""])]
+  (let [q-a (rand-nth ["\"test\"" 1 "\\a" 2048 :key-word 15 "\"hello\"" "\\x" "\"eon\""])]
     {:question q-a
      :answer q-a
      :answered? false
@@ -11,9 +11,21 @@
 
 (def level-1
   {:level 1
-   :title "Level 1"
-   :notes "Basics"
+   :title "The Thing Itself"
    :question-fn make-basic-question
+   :curr-question 0})
+
+(defn make-bool-question []
+  (let [result (rand-nth [true false])]
+    {:question result
+     :answer result
+     :answered? false
+     :points 100}))
+
+(def level-2
+  {:level 2
+   :title "Truthiness"
+   :question-fn make-bool-question
    :curr-question 0})
 
 (defn make-arith-question []
@@ -26,16 +38,16 @@
      :answered?  false
      :points     100}))
 
-(def level-2
-  {:level 2
-   :title "Level 2"
-   :notes "Arithmetic"
+(def level-3
+  {:level 3
+   :title "Arithmetic"
    :question-fn make-arith-question
    :curr-question 0})
 
 (def levels
   {1 level-1
-   2 level-2})
+   2 level-2
+   3 level-3})
 
 (defn make-level [level-num]
   (let [level (get levels level-num)]
