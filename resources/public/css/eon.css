@@ -1,5 +1,7 @@
 body {
-    font-family: georgia, serif;
+  font-family: verdana, sans-serif;
+  background-color: #222;
+  color: #ddd;
 }
 
 h1 {
@@ -10,36 +12,47 @@ h1 {
   position: absolute;
   top: 10%;
   left: 30%;
-  width: 400px;
+  width: 600px;
   height: 500px;
-  padding: 0 10px;
-}
-
-#level-box h1 {
-  font-size: 24pt;
-}
-
-#question-box {}
-
-#answer-box {
-  margin-top: 40px;
-  height: 100px;
 }
 
 #app-world {
   outline: none;
-  padding: 20px;
+  padding: 0 10px;
 }
 
 #app-world:focus {
-  background-color: #eee;
-  border: 1px solid #ddd;
+  border: 1px solid #333;
+  height: 500px;
+}
+
+#level-box h1 {
+  font-size: 22pt;
+  color: #555;
+}
+
+#question-box {
+  text-align: center;
+  height: 300px;
+}
+
+#question-display {
+  color: #999;
+}
+
+#answer-box {
+  margin-top: 60px;
+  height: 40px;
+  text-align: center;
+  color: #999;
 }
 
 #answer-display {
+  color: #eee;
   height: 22px;
 }
 
 #tool-box {
   margin-top: 40px;
+  display: none;
 }

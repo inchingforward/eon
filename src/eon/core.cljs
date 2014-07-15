@@ -66,7 +66,8 @@
           (dom/div #js {:id "level-box"}
             (dom/h1 nil (str (:level @game-state) ": " (:title @game-state))))
           (dom/div #js {:id "question-box"}
-            (dom/h1 nil (str (get-question))))
+            (dom/h2 #js {:ref "question-display" :id "question-display" }
+                    (str (get-question))))
           (dom/div #js {:id "answer-box"}
             (dom/h2 #js {:ref "answer-display" :id "answer-display"}
                     (:player-answer @game-state)))
