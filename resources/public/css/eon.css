@@ -47,9 +47,15 @@ h1 {
   color: #999;
 }
 
-#answer-display {
-  color: #eee;
-  height: 22px;
+#answer-input {
+  font-size: 23pt;
+  color: #999;
+  background-color: #262626;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+  border: 0;
+  outline: none;
 }
 
 #tool-box {
