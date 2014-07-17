@@ -1,11 +1,15 @@
+/*
+  Clojure Logo colors:
+
+  dark blue  : #5881d8
+  light blue : #90b4fd
+  dark green : #68b132
+  light green: #91dc47
+*/
+
 body {
   font-family: verdana, sans-serif;
-  background-color: #222;
-  color: #ddd;
-}
-
-h1 {
-  font-size: 17pt;
+  background-color: #fff;
 }
 
 #app {
@@ -21,41 +25,39 @@ h1 {
   padding: 0 10px;
 }
 
-#app-world:focus {
-  border: 1px solid #333;
-  height: 500px;
-}
+#level-box {}
 
 #level-box h1 {
-  font-size: 22pt;
-  color: #555;
+  font-size: 23pt;
+  color: #5881d8;
 }
 
 #question-box {
-  text-align: center;
-  height: 300px;
+  height: 200px;
 }
 
 #question-display {
-  color: #999;
+  fong-size: 22pt;
+  text-align: center;
+  color: #90b4fd;
 }
 
 #answer-box {
-  margin-top: 60px;
-  height: 40px;
   text-align: center;
-  color: #999;
+  height: 200px;
 }
 
 #answer-input {
-  font-size: 23pt;
-  color: #999;
-  background-color: #262626;
-  padding: 5px;
-  width: 100%;
+  font-size: 22pt;
+  font-weight: bold;
+  color: #91dc47;
+  background-color: #fff;
   text-align: center;
-  border: 0;
   outline: none;
+  width: 100%;
+  height: 40px;
+  margin-top: 75px;
+  border: 1px solid #91dc47;
 }
 
 #tool-box {
