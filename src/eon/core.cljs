@@ -1,7 +1,8 @@
 (ns eon.core
   (:require [figwheel.client :as fw]
             [om.core :as om :include-macros true]
-            [om.dom :as dom :include-macros true]
+            [om-tools.core :refer-macros [defcomponent]]
+            [om-tools.dom :as dom :include-macros true]
             [eon.levels :as levels]))
 
 (enable-console-print!)
@@ -49,36 +50,20 @@
   (when (= keyCode 13)
     (attempt-answer-question app owner)))
 
-(defn eon-view [app owner]
-  (reify
-    om/IRender
-      (render [this]
-        (dom/div #js {:ref "app-world" :id "app-world"}
-          (dom/div #js {:id "level-box"}
-            (dom/h1 nil (str (:level @game-state) ": " (:title @game-state))))
-          (dom/div #js {:id "question-box"}
-            (dom/h2 #js {:ref "question-display" :id "question-display" }
-                    (str (get-question))))
-          (dom/div #js {:id "answer-box"}
-            (dom/input #js {:ref "answer-input"
-                            :id "answer-input"
-                            :onKeyPress #(key-entered (.-keyCode %) app owner)} ""))
-          (dom/div #js {:id "tool-box"}
-            (dom/button
-              #js {:onClick advance-level}
-              "Change level")
-            (dom/button
-              #js {:onClick #(swap! game-state merge (levels/make-level 1))}
-              "Reset")
-            (dom/button
-              #js {:onClick #(set! (.-innerHTML (om/get-node owner "debug"))
-                                   (str @game-state))}
-              "Show State"))
-          (dom/div #js {:id "debug-box"}
-            (dom/h4 #js {:id "debug" :ref "debug"} ""))))
-     om/IDidMount
-      (did-mount [this]
-        (.focus (om/get-node owner "answer-input")))))
+(defcomponent eon-view [app owner]
+  (render [this]
+    (dom/div {:ref "app-world" :id "app-world"}
+      (dom/div {:id "level-box"}
+        (dom/h1 (str (:level @game-state) ": " (:title @game-state))))
+      (dom/div {:id "question-box"}
+        (dom/h2 {:ref "question-display" :id "question-display"}
+                (str (get-question))))
+      (dom/div {:id "answer-box"}
+        (dom/input {:ref "answer-input"
+                    :id "answer-input"
+                    :onKeyPress #(key-entered (.-keyCode %) app owner)} ""))))
+  (did-mount [this]
+    (.focus (om/get-node owner "answer-input"))))
 
 (om/root eon-view game-state
   {:target (. js/document (getElementById "app"))})
