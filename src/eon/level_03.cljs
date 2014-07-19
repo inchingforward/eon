@@ -1,18 +1,17 @@
 (ns eon.level-03
-  "Arithmetic.")
+  "Equality.")
 
 (defn make-question []
-  (let [operators {"+" + "-" - "*" * "/" /}
-        op-key (rand-nth (keys operators))
-        num1   (rand-int 10)
-        num2   (rand-int 10)]
-    {:question   (str "(" op-key " " num1 " " num2 ")")
-     :answer     ((get operators op-key) num1 num2)
-     :answered?  false
-     :points     100}))
+  (let [nums [1 2 3]
+        num1 (rand-nth nums)
+        num2 (rand-nth nums)]
+    {:question (str "(== " num1 " " num2 ")")
+     :answer (== num1 num2)
+     :answered? false
+     :points 100}))
 
 (def level
   {:level 3
-   :title "Arithmetic"
+   :title "Equality"
    :question-fn make-question
    :curr-question 0})

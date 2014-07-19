@@ -2,14 +2,16 @@
   "Creates levels."
   (:require [eon.level-01 :as level-01]
             [eon.level-02 :as level-02]
-            [eon.level-03 :as level-03]))
+            [eon.level-03 :as level-03]
+            [eon.level-04 :as level-04]))
 
 (def questions-per-level 5)
 
 (def levels
   {1 level-01/level
    2 level-02/level
-   3 level-03/level})
+   3 level-03/level
+   4 level-04/level})
 
 (defn make-level
   "Creates a level map based on the given leven number."
