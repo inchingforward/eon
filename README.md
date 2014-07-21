@@ -10,4 +10,4 @@ It's very early, but the latest build is pushed [here](http://eon.mikejanger.net
 
 ### Testing
 
-Testing requires the [PhantomJS](http://phantomjs.org/) project.
+Testing requires [PhantomJS](http://phantomjs.org/).
