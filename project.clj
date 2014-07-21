@@ -9,18 +9,27 @@
                  [figwheel "0.1.3-SNAPSHOT"]]
 
   :plugins [[lein-cljsbuild "1.0.3"]
-            [lein-figwheel "0.1.3-SNAPSHOT"]]
+            [lein-figwheel "0.1.3-SNAPSHOT"]
+            [com.cemerick/clojurescript.test "0.2.3"]]
 
-  :source-paths ["src"]
+  :source-paths ["src" "test"]
 
   :cljsbuild {
-    :builds [{:id "eon"
-              :source-paths ["src"]
-              :compiler {
-                :output-to "resources/public/js/eon.js"
-                :output-dir "resources/public/js/out"
-                :optimizations :none
-                :source-map true}}]}
+    :builds {
+
+      :production {
+        :source-paths ["src"]
+        :compiler {
+          :output-to "resources/public/js/out/eon.js"
+          :optimizations :advanced}}
+
+      :testing {
+        :source-paths ["src" "test"]
+        :compiler {
+          :output-to "target/testing/eon-test.js"
+          :optimizations :simple}}}
+
+    :test-commands {"unit" ["phantomjs" :runner "resources/public/js/out/eon-test.js"]}}
 
   :figwheel {
     :http-server-root "public"
