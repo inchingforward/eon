@@ -4,4 +4,4 @@
             [eon.levels :as levels]))
 
 (deftest level-contains-expected-keys
-  (is (contains? (levels/make-level 1) :lxevel)))
+  (is (contains? (levels/make-level 1) :level)))

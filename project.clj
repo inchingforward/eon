@@ -12,8 +12,6 @@
             [lein-figwheel "0.1.3-SNAPSHOT"]
             [com.cemerick/clojurescript.test "0.2.3"]]
 
-  :source-paths ["src" "test"]
-
   :cljsbuild {
     :builds {
 
@@ -29,7 +27,7 @@
           :output-to "target/testing/eon-test.js"
           :optimizations :simple}}}
 
-    :test-commands {"unit" ["phantomjs" :runner "resources/public/js/out/eon-test.js"]}}
+    :test-commands {"unit" ["phantomjs" :runner "target/testing/eon-test.js"]}}
 
   :figwheel {
     :http-server-root "public"
