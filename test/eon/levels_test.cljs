@@ -1,4 +1,5 @@
-(ns eon.core-test
+(ns eon.levels-test
+  "Tests common to all levels."
   (:require-macros [cemerick.cljs.test :refer [deftest is]])
   (:require [cemerick.cljs.test :as t]
             [eon.levels :as levels]))
@@ -21,3 +22,10 @@
 (deftest questions-contain-expected-keys
   (let [keys [:question :answer :answered? :points]]
     (is (every? #(questions-contain-keys? % keys) level-maps))))
+
+
+;; Specific levels
+
+(deftest level-1-questions-equal-answers
+  (let [level (nth level-maps 0)]
+    (is (every? #(= (:question %) (:answer %)) (:questions level)))))
