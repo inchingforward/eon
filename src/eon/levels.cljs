@@ -14,7 +14,7 @@
    4 level-04/level})
 
 (defn make-level
-  "Creates a level map based on the given leven number."
+  "Creates a level map based on the given level number."
   [level-num]
   (let [level (get levels level-num)]
     (merge level
