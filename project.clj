@@ -19,7 +19,8 @@
         :source-paths ["src"]
         :compiler {
           :output-to "resources/public/js/eon.js"
-          :optimizations :advanced}}
+          :output-dir "resources/public/js/out"
+          :optimizations :none}}
 
       :testing {
         :source-paths ["src" "test"]

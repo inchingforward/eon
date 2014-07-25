@@ -1,15 +1,36 @@
 (ns eon.level-04
   "Arithmetic.")
 
+(defn make-add-question []
+  (let [num1 (rand-int 10)
+        num2 (rand-int 10)]
+    {:question (str "(+ " num1 " " num2 ")")
+     :answer   (+ num1 num2)}))
+
+(defn make-sub-question []
+  (let [num1 (rand-int 10)
+        num2 (rand-nth (range (inc num1)))]
+    {:question (str "(- " num1 " " num2 ")")
+     :answer   (- num1 num2)}))
+
+(defn make-mul-question []
+  (let [num1 (rand-int 10)
+        num2 (rand-int 10)]
+    {:question (str "(* " num1 " " num2 ")")
+     :answer   (* num1 num2)}))
+
+(defn make-div-question []
+  (let [num1 (rand-int 10)
+        num2 (rand-int 10)
+        prod (* num1 num2)]
+    {:question (str "(/ " prod " " num1 ")")
+     :answer   num2}))
+
+(def arith-fns [make-add-question, make-sub-question, make-mul-question, make-div-question])
+
 (defn make-question []
-  (let [operators {"+" + "-" - "*" * "/" /}
-        op-key (rand-nth (keys operators))
-        num1   (rand-int 10)
-        num2   (rand-int 10)]
-    {:question   (str "(" op-key " " num1 " " num2 ")")
-     :answer     ((get operators op-key) num1 num2)
-     :answered?  false
-     :points     100}))
+  (let [question-fn (rand-nth arith-fns)]
+    (merge (question-fn) {:answered? false :points 0})))
 
 (def level
   {:level 4
