@@ -7,11 +7,6 @@
 
 (enable-console-print!)
 
-(fw/watch-and-reload
- :jsload-callback (fn []
-                    ;; (stop-and-start-my app)
-                    ))
-
 (def initial-state (merge (levels/make-level 1) {:player-answer ""}))
 
 (def game-state (atom initial-state))
@@ -67,4 +62,3 @@
 
 (om/root eon-view game-state
   {:target (. js/document (getElementById "app"))})
-
