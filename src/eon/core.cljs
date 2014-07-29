@@ -1,6 +1,5 @@
 (ns eon.core
-  (:require [figwheel.client :as fw]
-            [om.core :as om :include-macros true]
+  (:require [om.core :as om :include-macros true]
             [om-tools.core :refer-macros [defcomponent]]
             [om-tools.dom :as dom :include-macros true]
             [eon.levels :as levels]))
@@ -45,6 +44,12 @@
   (when (= keyCode 13)
     (attempt-answer-question app owner)))
 
+(defn show [owner name]
+  (set! (-> (om/get-node owner name) .-style .-display) "none"))
+
+(defn hide [owner name]
+  (set! (-> (om/get-node owner name) .-style .-display) "block"))
+
 (defcomponent eon-view [app owner]
   (render [this]
     (dom/div {:ref "app-world" :id "app-world"}
@@ -62,3 +67,12 @@
 
 (om/root eon-view game-state
   {:target (. js/document (getElementById "app"))})
+
+(defcomponent attract-view [app owner]
+  (render [this]
+    (dom/div {:ref "attract" :id "attract"}
+      (dom/h1 "I am the attract component")
+      (dom/button {:onClick #(show owner "attract")} "Start"))))
+
+(om/root attract-view game-state
+  {:target (. js/document (getElementById "attract"))})
