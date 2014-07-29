@@ -44,12 +44,6 @@
   (when (= keyCode 13)
     (attempt-answer-question app owner)))
 
-(defn show [owner name]
-  (set! (-> (om/get-node owner name) .-style .-display) "none"))
-
-(defn hide [owner name]
-  (set! (-> (om/get-node owner name) .-style .-display) "block"))
-
 (defcomponent eon-view [app owner]
   (render [this]
     (dom/div {:ref "app-world" :id "app-world"}
@@ -72,7 +66,7 @@
   (render [this]
     (dom/div {:ref "attract" :id "attract"}
       (dom/h1 "I am the attract component")
-      (dom/button {:onClick #(show owner "attract")} "Start"))))
+      (dom/button {:onClick #(.log js/console "TODO: hide attract, show game.")} "Start"))))
 
 (om/root attract-view game-state
   {:target (. js/document (getElementById "attract"))})
