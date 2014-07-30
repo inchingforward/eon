@@ -1,7 +1,5 @@
 (ns eon.core
-  (:require [om.core :as om :include-macros true]
-            [om-tools.core :refer-macros [defcomponent]]
-            [om-tools.dom :as dom :include-macros true]
+  (:require [reagent.core :as reagent :refer [atom]]
             [eon.levels :as levels]))
 
 (enable-console-print!)
@@ -44,29 +42,49 @@
   (when (= keyCode 13)
     (attempt-answer-question app owner)))
 
+(comment(defn game-view [app owner]
+  (defcomponent game-view [app owner]
+    (render [this]
+      (dom/div {:ref "app-world" :id "app-world"}
+        (dom/div {:id "level-box"}
+          (dom/h1 (str (:level @game-state) ": " (:title @game-state))))
+        (dom/div {:id "question-box"}
+          (dom/h2 {:ref "question-display" :id "question-display"}
+                  (str (get-question))))
+        (dom/div {:id "answer-box"}
+          (dom/input {:ref "answer-input"
+                      :id "answer-input"
+                      :onKeyPress #(key-entered (.-keyCode %) app owner)} ""))))
+    (did-mount [this]
+      (.focus (om/get-node owner "answer-input")))))
+
+(defn attract-view [app owner]
+  (defcomponent attract-view [app owner]
+    (render [this]
+      (dom/h1 "I am the attract component"))))
+
+(defn game-over-view [app owner]
+  (defcomponent game-over-view [app owner]
+    (render [this]
+      (dom/h1 "I am the game over component"))))
+
 (defcomponent eon-view [app owner]
-  (render [this]
-    (dom/div {:ref "app-world" :id "app-world"}
-      (dom/div {:id "level-box"}
-        (dom/h1 (str (:level @game-state) ": " (:title @game-state))))
-      (dom/div {:id "question-box"}
-        (dom/h2 {:ref "question-display" :id "question-display"}
-                (str (get-question))))
-      (dom/div {:id "answer-box"}
-        (dom/input {:ref "answer-input"
-                    :id "answer-input"
-                    :onKeyPress #(key-entered (.-keyCode %) app owner)} ""))))
-  (did-mount [this]
-    (.focus (om/get-node owner "answer-input"))))
+  (render
+    (dom/div
+      (om/build game-view app)
+      (om/build attract-view app)
+      (om/build game-over-view app))))
 
 (om/root eon-view game-state
-  {:target (. js/document (getElementById "app"))})
+  {:target (. js/document (getElementById "app"))}))
 
-(defcomponent attract-view [app owner]
-  (render [this]
-    (dom/div {:ref "attract" :id "attract"}
-      (dom/h1 "I am the attract component")
-      (dom/button {:onClick #(.log js/console "TODO: hide attract, show game.")} "Start"))))
+(defn game-component []
+  [:div#app-world
+   [:div#level-box
+    [:h1 (str (:level @game-state) ": " (:title @game-state))]]
+   [:div#question-box
+    [:h2#question-display (str (get-question))]]
+   [:div#answer-box
+    [:input#answer-input {:on-key-press #(key-entered (.-keyCode %))}]]])
 
-(om/root attract-view game-state
-  {:target (. js/document (getElementById "attract"))})
+(reagent/render-component [game-component] (. js/document (getElementById "app")))
