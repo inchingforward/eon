@@ -42,6 +42,14 @@
   (when (= keyCode 13)
     (attempt-answer-question app owner)))
 
+(defn start-game []
+  (let [attract (.getElementById js/document "attract")
+        app     (.getElementById js/document "app")
+        input   (.getElementById js/document "answer-input")]
+    (set! (-> attract .-style .-display) "none")
+    (set! (-> app .-style .-display) "block")
+    (.focus input)))
+
 (comment(defn game-view [app owner]
   (defcomponent game-view [app owner]
     (render [this]
@@ -58,10 +66,6 @@
     (did-mount [this]
       (.focus (om/get-node owner "answer-input")))))
 
-(defn attract-view [app owner]
-  (defcomponent attract-view [app owner]
-    (render [this]
-      (dom/h1 "I am the attract component"))))
 
 (defn game-over-view [app owner]
   (defcomponent game-over-view [app owner]
@@ -87,4 +91,16 @@
    [:div#answer-box
     [:input#answer-input {:on-key-press #(key-entered (.-keyCode %))}]]])
 
-(reagent/render-component [game-component] (. js/document (getElementById "app")))
+(defn attract-component []
+  [:div#attract
+   [:h1 "EON!"]
+   [:button#start-button {:on-click #(start-game)} "Start"]])
+
+(defn game-over-component []
+  [:div#game-over
+   [:h1 "Game over!"]])
+
+(reagent/render-component [game-component] (.getElementById js/document "app"))
+(reagent/render-component [attract-component] (.getElementById js/document "attract"))
+(reagent/render-component [game-over-component] (.getElementById js/document "game-over"))
+
