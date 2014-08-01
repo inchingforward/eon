@@ -26,21 +26,22 @@
   (< (:curr-question @game-state)
      (dec levels/questions-per-level)))
 
-(defn answer-question [owner]
+(defn answer-question []
   (if (has-more-questions)
     (advance-question)
     (advance-level)))
 
-(defn attempt-answer-question [app owner]
+(defn attempt-answer-question []
   (let [actual-answer (str (get-answer))
-        player-answer (.-value (om/get-node owner "answer-input"))]
-    (set! (.-value (om/get-node owner "answer-input")) "")
+        answer-input (.getElementById js/document "answer-input")
+        player-answer (.-value answer-input)]
+    (set! (.-value answer-input) "")
     (when (== actual-answer player-answer)
-      (answer-question owner))))
+      (answer-question))))
 
-(defn key-entered [keyCode app owner]
+(defn key-entered [keyCode]
   (when (= keyCode 13)
-    (attempt-answer-question app owner)))
+    (attempt-answer-question)))
 
 (defn start-game []
   (let [attract (.getElementById js/document "attract")
@@ -49,38 +50,6 @@
     (set! (-> attract .-style .-display) "none")
     (set! (-> app .-style .-display) "block")
     (.focus input)))
-
-(comment(defn game-view [app owner]
-  (defcomponent game-view [app owner]
-    (render [this]
-      (dom/div {:ref "app-world" :id "app-world"}
-        (dom/div {:id "level-box"}
-          (dom/h1 (str (:level @game-state) ": " (:title @game-state))))
-        (dom/div {:id "question-box"}
-          (dom/h2 {:ref "question-display" :id "question-display"}
-                  (str (get-question))))
-        (dom/div {:id "answer-box"}
-          (dom/input {:ref "answer-input"
-                      :id "answer-input"
-                      :onKeyPress #(key-entered (.-keyCode %) app owner)} ""))))
-    (did-mount [this]
-      (.focus (om/get-node owner "answer-input")))))
-
-
-(defn game-over-view [app owner]
-  (defcomponent game-over-view [app owner]
-    (render [this]
-      (dom/h1 "I am the game over component"))))
-
-(defcomponent eon-view [app owner]
-  (render
-    (dom/div
-      (om/build game-view app)
-      (om/build attract-view app)
-      (om/build game-over-view app))))
-
-(om/root eon-view game-state
-  {:target (. js/document (getElementById "app"))}))
 
 (defn game-component []
   [:div#app-world
