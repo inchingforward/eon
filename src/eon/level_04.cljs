@@ -32,8 +32,11 @@
   (let [question-fn (rand-nth arith-fns)]
     (merge (question-fn) {:answered? false :points 0})))
 
-(def level
+(defn make-questions [num-questions]
+  (take num-questions (repeatedly make-question)))
+
+(defn make-level [num-questions]
   {:level 4
    :title "Arithmetic"
-   :question-fn make-question
-   :curr-question 0})
+   :questions (make-questions num-questions)})
+

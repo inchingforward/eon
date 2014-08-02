@@ -5,18 +5,9 @@
             [eon.level-03 :as level-03]
             [eon.level-04 :as level-04]))
 
-(def questions-per-level 5)
-
-(def levels
-  {1 level-01/level
-   2 level-02/level
-   3 level-03/level
-   4 level-04/level})
-
-(defn make-level
-  "Creates a level map based on the given level number."
-  [level-num]
-  (let [level (get levels level-num)]
-    (merge level
-           {:questions
-             (take questions-per-level (repeatedly (:question-fn level)))})))
+(defn make-levels [num-questions]
+  "Builds a vector of level maps."
+  [(level-01/make-level num-questions)
+   (level-02/make-level num-questions)
+   (level-03/make-level num-questions)
+   (level-04/make-level num-questions)])

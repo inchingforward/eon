@@ -4,27 +4,34 @@
 
 (enable-console-print!)
 
-(def initial-state (merge (levels/make-level 1) {:player-answer ""}))
+(def questions-per-level 5)
 
-(def game-state (atom initial-state))
+(def game-state
+  (atom
+    (merge {:levels (levels/make-levels questions-per-level)}
+           {:curr-level 0
+            :curr-question 0})))
 
 (defn advance-level []
-  (swap! game-state merge (levels/make-level (inc (:level @game-state)))))
+  (swap! game-state assoc :curr-level (inc (:curr-level @game-state))))
 
 (defn advance-question []
   (swap! game-state assoc :curr-question (inc (:curr-question @game-state))))
 
-(defn get-question []
-  (:question (nth (:questions @game-state)
-                  (:curr-question @game-state))))
+(defn get-level []
+  (nth (:levels @game-state)
+       (:curr-level @game-state)))
 
-(defn get-answer []
-  (:answer (nth (:questions @game-state)
-                (:curr-question @game-state))))
+(defn get-question []
+  (let [level (get-level)]
+    (nth (:questions level)
+         (:curr-question @game-state))))
+
+(defn get-answer [] (:answer (get-question)))
 
 (defn has-more-questions []
   (< (:curr-question @game-state)
-     (dec levels/questions-per-level)))
+     (dec questions-per-level)))
 
 (defn answer-question []
   (if (has-more-questions)
@@ -52,13 +59,15 @@
     (.focus input)))
 
 (defn game-component []
-  [:div#app-world
-   [:div#level-box
-    [:h1 (str (:level @game-state) ": " (:title @game-state))]]
-   [:div#question-box
-    [:h2#question-display (str (get-question))]]
-   [:div#answer-box
-    [:input#answer-input {:on-key-press #(key-entered (.-keyCode %))}]]])
+  (let [level (get-level)
+        question (:question (get-question))]
+    [:div#app-world
+     [:div#level-box
+      [:h1 (str (:level level) ": " (:title level))]]
+     [:div#question-box
+      [:h2#question-display (str question)]]
+     [:div#answer-box
+      [:input#answer-input {:on-key-press #(key-entered (.-keyCode %))}]]]))
 
 (defn attract-component []
   [:div#attract

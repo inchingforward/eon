@@ -10,8 +10,10 @@
      :answered? false
      :points 100}))
 
-(def level
+(defn make-questions [num-questions]
+  (take num-questions (repeatedly make-question)))
+
+(defn make-level [num-questions]
   {:level 3
    :title "Equality"
-   :question-fn make-question
-   :curr-question 0})
+   :questions (make-questions num-questions)})
