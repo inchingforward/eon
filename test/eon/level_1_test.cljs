@@ -1,5 +1,5 @@
 (ns eon.level-1-test
-  "Tests for the arithmetic level."
+  "Tests for the basic level."
   (:require-macros [cemerick.cljs.test :refer [deftest is]])
   (:require [cemerick.cljs.test :as t]
             [eon.level-01 :as level]
