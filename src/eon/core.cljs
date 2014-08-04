@@ -8,15 +8,22 @@
 
 (def failed-answer-point-decution 10)
 
-(def game-state
-  (atom
-    (merge {:levels (levels/make-levels questions-per-level)}
-           {:curr-level 0
-            :curr-question 0})))
+(def initial-state
+  (merge {:levels (levels/make-levels questions-per-level)}
+         {:curr-level 0 :curr-question 0}))
+
+(def game-state (atom initial-state))
+
+(defn end-game []
+  (let [app       (.getElementById js/document "app")
+        game-over (.getElementById js/document "game-over")]
+    (set! (-> app .-style .-display) "none")
+    (set! (-> game-over .-style .-display) "block")))
 
 (defn advance-level []
   "Increments the current level number."
-  (swap! game-state assoc :curr-level (inc (:curr-level @game-state))))
+    (swap! game-state assoc :curr-level (inc (:curr-level @game-state)))
+    (swap! game-state assoc :curr-question 0))
 
 (defn advance-question []
   "Increments the current question number."
@@ -37,6 +44,10 @@
   "Gets the actual answer to the current question."
   (:answer (get-question)))
 
+(defn has-more-levels []
+  (< (:curr-level @game-state)
+    (count (:levels @game-state))))
+
 (defn has-more-questions []
   "Returns true if there are more unanswred questions in the level."
   (< (:curr-question @game-state)
@@ -49,7 +60,9 @@
          true)
   (if (has-more-questions)
     (advance-question)
-    (advance-level)))
+    (if (has-more-levels)
+      (advance-level)
+      (end-game))))
 
 (defn deduct-points []
   "Deducts points from the current level's current question."
