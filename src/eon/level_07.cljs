@@ -8,7 +8,7 @@
    :points 100})
 
 (defn make-questions [num-questions]
-  (take num-questions (repeatedly make-question)))
+  (vec (take num-questions (repeatedly make-question))))
 
 (defn make-level [num-questions]
   {:level 6

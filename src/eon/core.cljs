@@ -6,6 +6,8 @@
 
 (def questions-per-level 5)
 
+(def failed-answer-point-decution 10)
+
 (def game-state
   (atom
     (merge {:levels (levels/make-levels questions-per-level)}
@@ -34,17 +36,29 @@
      (dec questions-per-level)))
 
 (defn answer-question []
+  (swap! game-state
+         assoc-in
+         [:levels (:curr-level @game-state) :questions (:curr-question @game-state) :answered?]
+         true)
   (if (has-more-questions)
     (advance-question)
     (advance-level)))
+
+(defn deduct-points []
+  (let [curr-points (:points (get-question))]
+    (swap! game-state
+           assoc-in
+           [:levels (:curr-level @game-state) :questions (:curr-question @game-state) :points]
+           (- curr-points failed-answer-point-decution))))
 
 (defn attempt-answer-question []
   (let [actual-answer (str (get-answer))
         answer-input (.getElementById js/document "answer-input")
         player-answer (.-value answer-input)]
     (set! (.-value answer-input) "")
-    (when (== actual-answer player-answer)
-      (answer-question))))
+    (if (== actual-answer player-answer)
+      (answer-question)
+      (deduct-points))))
 
 (defn key-entered [keyCode]
   (when (= keyCode 13)
