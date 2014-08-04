@@ -15,23 +15,30 @@
             :curr-question 0})))
 
 (defn advance-level []
+  "Increments the current level number."
   (swap! game-state assoc :curr-level (inc (:curr-level @game-state))))
 
 (defn advance-question []
+  "Increments the current question number."
   (swap! game-state assoc :curr-question (inc (:curr-question @game-state))))
 
 (defn get-level []
+  "Gets the current level."
   (nth (:levels @game-state)
        (:curr-level @game-state)))
 
 (defn get-question []
+  "Gets the current question in the current level."
   (let [level (get-level)]
     (nth (:questions level)
          (:curr-question @game-state))))
 
-(defn get-answer [] (:answer (get-question)))
+(defn get-answer []
+  "Gets the actual answer to the current question."
+  (:answer (get-question)))
 
 (defn has-more-questions []
+  "Returns true if there are more unanswred questions in the level."
   (< (:curr-question @game-state)
      (dec questions-per-level)))
 
@@ -45,6 +52,7 @@
     (advance-level)))
 
 (defn deduct-points []
+  "Deducts points from the current level's current question."
   (let [curr-points (:points (get-question))]
     (swap! game-state
            assoc-in
@@ -52,6 +60,10 @@
            (- curr-points failed-answer-point-decution))))
 
 (defn attempt-answer-question []
+  "Tries to answer the question based on the player's answer.  If the
+  answer is correct, advances the question (including the level if on
+  the last question.  If the answer is incorrect, deducts points from
+  the current question."
   (let [actual-answer (str (get-answer))
         answer-input (.getElementById js/document "answer-input")
         player-answer (.-value answer-input)]
@@ -65,6 +77,7 @@
     (attempt-answer-question)))
 
 (defn start-game []
+  "Hides the attract component and displays the game component."
   (let [attract (.getElementById js/document "attract")
         app     (.getElementById js/document "app")
         input   (.getElementById js/document "answer-input")]
