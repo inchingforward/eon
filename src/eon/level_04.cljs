@@ -20,7 +20,7 @@
      :answer   (* num1 num2)}))
 
 (defn make-div-question []
-  (let [num1 (rand-int [1 2 3 4 5 6 7 8 9])
+  (let [num1 (rand-nth [1 2 3 4 5 6 7 8 9])
         num2 (rand-nth [1 2 3 4 5 6 7 8 9])
         prod (* num1 num2)]
     {:question (str "(/ " prod " " num1 ")")
