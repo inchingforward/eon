@@ -8,6 +8,6 @@
 (defn make-levels [num-questions]
   "Builds a vector of level maps."
   [(level-01/make-level num-questions)
-;   (level-02/make-level num-questions)
-;   (level-03/make-level num-questions)
+   (level-02/make-level num-questions)
+   (level-03/make-level num-questions)
    (level-04/make-level num-questions)])
