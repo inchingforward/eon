@@ -45,7 +45,7 @@
   (:answer (get-question)))
 
 (defn has-more-levels []
-  (< (:curr-level @game-state)
+  (< (inc (:curr-level @game-state))
     (count (:levels @game-state))))
 
 (defn has-more-questions []
