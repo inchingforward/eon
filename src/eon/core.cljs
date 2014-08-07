@@ -17,8 +17,9 @@
 (defn end-game []
   (let [app       (.getElementById js/document "app")
         game-over (.getElementById js/document "game-over")]
+    (set! (-> game-over .-style .-display) "block")
     (set! (-> app .-style .-display) "none")
-    (set! (-> game-over .-style .-display) "block")))
+    ))
 
 (defn advance-level []
   "Increments the current level number."
@@ -110,12 +111,12 @@
       [:input#answer-input {:on-key-press #(key-entered (.-keyCode %))}]]]))
 
 (defn attract-component []
-  [:div#attract
+  [:div
    [:h1 "EON!"]
    [:button#start-button {:on-click #(start-game)} "Start"]])
 
 (defn game-over-component []
-  [:div#game-over
+  [:div
    [:h1 "Game over!"]])
 
 (reagent/render-component [game-component] (.getElementById js/document "app"))
