@@ -99,6 +99,14 @@
     (set! (-> app .-style .-display) "block")
     (.focus input)))
 
+(defn calculate-points []
+  (->> (:levels @game-state)
+       (map :questions)
+       flatten
+       (filter :answered?)
+       (map :points)
+       (reduce +)))
+
 (defn game-component []
   (let [level (get-level)
         question (:question (get-question))]
@@ -116,8 +124,10 @@
    [:button#start-button {:on-click #(start-game)} "Start"]])
 
 (defn game-over-component []
+  (let [points (calculate-points)]
   [:div
-   [:h1 "Game over!"]])
+   [:h1 "Game over!"]
+   [:p#points (str "Points: " points)]]))
 
 (reagent/render-component [game-component] (.getElementById js/document "app"))
 (reagent/render-component [attract-component] (.getElementById js/document "attract"))

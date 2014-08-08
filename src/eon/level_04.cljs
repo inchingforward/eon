@@ -30,7 +30,7 @@
 
 (defn make-question []
   (let [question-fn (rand-nth arith-fns)]
-    (merge (question-fn) {:answered? false :points 0})))
+    (merge (question-fn) {:answered? false :points 100})))
 
 (defn make-questions [num-questions]
   (vec (take num-questions (repeatedly make-question))))
