@@ -1,6 +1,9 @@
 (defproject eon "0.1.0-SNAPSHOT"
-  :description "A game that tests ClojureScript evaluation comprehension."
+  :description "A game that tests Clojure evaluation comprehension."
   :url "http://eon.mikejanger.net"
+
+  :license {:name "MIT License"
+            :url "http://www.opensource.org/licenses/MIT"}
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2202"]
