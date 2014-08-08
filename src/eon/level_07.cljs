@@ -11,6 +11,6 @@
   (vec (take num-questions (repeatedly make-question))))
 
 (defn make-level [num-questions]
-  {:level 6
+  {:level 7
    :title "Higher Order Functions"
    :questions (make-questions num-questions)})
