@@ -8,8 +8,3 @@
 (deftest level-1-questions-equal-answers
   (let [questions (take 10 (repeatedly level/make-question))]
     (is (every? #(= (:question %) (:answer %)) questions))))
-
-(deftest both-styles-of-character-are-accepted
-  (is (= \c "c"))
-  (is (= \c \c))
-  (is (= "c" "c")))
