@@ -12,6 +12,15 @@ body {
   background-color: #fff;
 }
 
+a {
+  text-decoration: none;
+  color: #90b4fd;
+}
+
+a:hover {
+  color: #5881d8;
+}
+
 #app {
   position: absolute;
   top: 10%;
@@ -77,16 +86,21 @@ body {
   text-align: center;
 }
 
+#attract p {
+  text-align: center;
+  padding-top: 80px;
+}
+
 #start-button {
   border: 0;
-  width: 300px;
-  height: 100px;
+  width: 200px;
+  height: 50px;
   font-size: 20pt;
   color: #68b132;
   background-color: #fff;
   border: 1px solid #68b132;
   position: relative;
-  left: 25%;
+  left: 33%;
 }
 
 #start-button:hover {
@@ -108,11 +122,20 @@ body {
 #game-over h1 {
   color: #5881d8;
   font-size: 50pt;
-  text-align: center;   
+  text-align: center;
 }
 
 #points {
   color: #68b132;
   font-size: 20pt;
   text-align: center;
+}
+
+#about {
+  position: absolute;
+  top: 10%;
+  left: 30%;
+  width: 600px;
+  height: 500px;
+  color: #5881d8;
 }

@@ -55,6 +55,8 @@
      (dec questions-per-level)))
 
 (defn answer-question []
+  "Marks the question answered, then moves on to the next question,
+  level, or game over."
   (swap! game-state
          assoc-in
          [:levels (:curr-level @game-state) :questions (:curr-question @game-state) :answered?]
@@ -121,7 +123,8 @@
 (defn attract-component []
   [:div
    [:h1 "EON!"]
-   [:button#start-button {:on-click #(start-game)} "Start"]])
+   [:button#start-button {:on-click #(start-game)} "Start"]
+   [:p [:a {:href "about.html"} "About"]]])
 
 (defn game-over-component []
   (let [points (calculate-points)]
