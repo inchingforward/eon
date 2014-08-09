@@ -1,6 +1,8 @@
 (ns eon.level-06
   "Sequences.")
 
+; first, rest, nth (first (rest n)), into get
+
 (defn make-question []
   {:question "test"
    :answer "test"

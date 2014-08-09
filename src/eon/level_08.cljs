@@ -1,6 +1,8 @@
 (ns eon.level-08
   "Higher Order Functions")
 
+; map, filter, anonymous functions
+
 (defn make-question []
   {:question "test"
    :answer "test"

@@ -1,6 +1,8 @@
 (ns eon.level-07
   "Maps.")
 
+; keys, get, key functions, map functions
+
 (defn make-question []
   {:question "test"
    :answer "test"

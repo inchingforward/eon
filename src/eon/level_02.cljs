@@ -2,12 +2,16 @@
   "Boolean Logic.")
 
 ;; Examples
-;; (< 5 3)
-;; (= 5 5)
-;; (if [] true false)
-;; (and (> 1 5) (= 2 4))
-;; (not (= 2 2))
-;; (not (= 2 3))
+;; true
+;; false
+;; (not true)
+;; (not false)
+;; (and true true)
+;; (and true false)
+;; (if true false true)
+;; (if (and true true) 1 2)
+;; (if (not true) 1 2)
+;; (if (not false) 1 2)
 
 (defn make-question []
   (let [result (rand-nth [true false])]

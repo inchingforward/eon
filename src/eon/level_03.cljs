@@ -2,11 +2,16 @@
   "Nil.")
 
 ;; Examples:
-;; (seq [])
-;; (seq? [])
 ;; (nil? nil)
-;; (nil? [])
+;; (nil? true)
+;; (nil? false)
+;; nil
 ;; (not nil)
+;; (empty? '())
+;; (nil? '())
+;; (seq? '())
+;; (seq '())
+;; (if '() true false)
 
 (defn make-question []
   (let [result (rand-nth [nil false])]
