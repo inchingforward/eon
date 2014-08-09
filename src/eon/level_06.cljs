@@ -1,5 +1,5 @@
 (ns eon.level-06
-  "Maps.")
+  "Sequences.")
 
 (defn make-question []
   {:question "test"
@@ -12,5 +12,5 @@
 
 (defn make-level [num-questions]
   {:level 6
-   :title "Maps"
+   :title "Sequences"
    :questions (make-questions num-questions)})

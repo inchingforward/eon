@@ -1,5 +1,13 @@
 (ns eon.level-02
-  "Boolean logic.")
+  "Boolean Logic.")
+
+;; Examples
+;; (< 5 3)
+;; (= 5 5)
+;; (if [] true false)
+;; (and (> 1 5) (= 2 4))
+;; (not (= 2 2))
+;; (not (= 2 3))
 
 (defn make-question []
   (let [result (rand-nth [true false])]

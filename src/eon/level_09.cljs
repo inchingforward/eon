@@ -1,5 +1,5 @@
-(ns eon.level-08
-  "Higher Order Functions")
+(ns eon.level-09
+  "Multimethods.")
 
 (defn make-question []
   {:question "test"
@@ -11,6 +11,6 @@
   (vec (take num-questions (repeatedly make-question))))
 
 (defn make-level [num-questions]
-  {:level 8
-   :title "Higher Order Functions"
+  {:level 9
+   :title "Multimethods"
    :questions (make-questions num-questions)})
