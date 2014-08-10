@@ -1,8 +1,8 @@
-(ns eon.level-4-test
+(ns eon.level-5-test
   "Tests for the arithmetic level."
   (:require-macros [cemerick.cljs.test :refer [deftest is]])
   (:require [cemerick.cljs.test :as t]
-            [eon.level-04 :as level]
+            [eon.level-05 :as level]
             [clojure.string :as str]))
 
 (defn has-required-parts [question-str]
