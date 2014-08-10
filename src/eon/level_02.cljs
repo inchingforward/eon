@@ -1,27 +1,19 @@
 (ns eon.level-02
   "Boolean Logic.")
 
-;; Examples
-;; true
-;; false
-;; (not true)
-;; (not false)
-;; (and true true)
-;; (and true false)
-;; (if true false true)
-;; (if (and true true) 1 2)
-;; (if (not true) 1 2)
-;; (if (not false) 1 2)
-
-(defn make-question []
-  (let [result (rand-nth [true false])]
-    {:question result
-     :answer result
-     :answered? false
-     :points 100}))
+(def qs [{:question "true" :answer true}
+         {:question "false" :answer false}
+         {:question "(not true)" :answer false}
+         {:question "(not false)" :answer true}
+         {:question "(and true true)" :answer true}
+         {:question "(and true false)" :answer false}
+         {:question "(if true false true)" :answer false}
+         {:question "(if (and true true) 1 2)" :answer 1}
+         {:question "(if (not true) 1 2)" :answer 2}
+         {:question "(or true false)" :answer true}])
 
 (defn make-questions [num-questions]
-  (vec (take num-questions (repeatedly make-question))))
+  (vec (take num-questions (map #(merge % {:answered? false :points 100}) qs))))
 
 (defn make-level [num-questions]
   {:level 2

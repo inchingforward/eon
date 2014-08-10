@@ -1,33 +1,23 @@
 (ns eon.level-04
-  "Equality.")
+  "Scalar Equality.")
 
-;; Examples
-; (= 1 (+ 0 1) (- 5 4) (/ 9 9))
-; (= "a" \a)
-; (= "a" (str \a))
-; (= :a "a")
-; (= :a (keyword "a"))
-; (= "hello" [\h \e \l \l \o])
-; (= "hello" (str [\h \e \l \l \o]))
-; (= "hello" (apply str [\h \e \l \l \o]))
-; (= "hello" (str "hell" "o"))
-; (identical? "hello" (str "hell" "o"))
-
-(defn make-question []
-  (let [nums [1 2 3]
-        num1 (rand-nth nums)
-        num2 (rand-nth nums)]
-    {:question (str "(= " num1 " " num2 ")")
-     :answer (== num1 num2)
-     :answered? false
-     :points 100}))
+(def qs [{:question "(= 1 (+ 0 1) (- 5 4) (/ 9 9))" :answer true}
+         {:question "(= \"a\" \\a)" :answer false}
+         {:question "(= \"a\" (str \\a))" :answer true}
+         {:question "(= :a \"a\")" :answer false}
+         {:question "(= :a (keyword \"a\"))" :answer true}
+         {:question "(= \"hello\" [\\h \\e \\l \\l \\o])" :answer false}
+         {:question "(= \"hello\" (str [\\h \\e \\l \\l \\o]))" :answer false}
+         {:question "(= \"hello\" (apply str [\\h \\e \\l \\l \\o]))" :answer true}
+         {:question "(= \"hello\" (str \"hell\" \"o\"))" :answer true}
+         {:question "(identical? \"hello\" (str \"hell\" \"o\"))" :answer false}])
 
 (defn make-questions [num-questions]
-  (vec (take num-questions (repeatedly make-question))))
+  (vec (take num-questions (map #(merge % {:answered? false :points 100}) qs))))
 
 (defn make-level [num-questions]
   {:level 4
-   :title "Equality"
+   :title "Scalar Equality"
    :questions (make-questions num-questions)})
 
 
