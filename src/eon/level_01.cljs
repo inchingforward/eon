@@ -1,15 +1,23 @@
 (ns eon.level-01
   "Basic evaluations:  things that evaluate to themselves.")
 
-(defn make-question []
-  (let [q-a (rand-nth ["\"test\"" 1 "\\a" 2048 :key-word 15 "\"hello\"" "\\x" "\"eon\""])]
-    {:question q-a
-     :answer q-a
-     :answered? false
-     :points 100}))
+(def strings ["\"eon\"" "\"clojure\"" "\"functional\"" "\"lisp\""])
+
+(def keywords [:color :year :price :title :name])
+
+(def characters ["\\a" "\\b" "\\c" "\\d" "\\e"])
+
+(def numbers [42 23 2014 3.14 13])
+
+(defn get-random-questions [num-questions]
+  (->> (concat strings keywords characters numbers)
+       (shuffle)
+       (take num-questions)))
 
 (defn make-questions [num-questions]
-  (vec (take num-questions (repeatedly make-question))))
+  (let [questions (get-random-questions num-questions)]
+    (vec (map #(merge {:question % :answer %}
+                      {:answered? false :points 100}) questions))))
 
 (defn make-level [num-questions]
   {:level 1
