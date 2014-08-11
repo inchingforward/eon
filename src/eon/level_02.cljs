@@ -12,7 +12,7 @@
          {:question "(or true true)" :answer true}
          {:question "(or true false)" :answer true}
          {:question "(or false true)" :answer true}
-         {:question "(or false false)" :answer true}
+         {:question "(or false false)" :answer false}
          {:question "(if true false true)" :answer false}
          {:question "(if (and true true) 1 2)" :answer 1}
          {:question "(if (not true) 1 2)" :answer 2}
