@@ -6,14 +6,24 @@
          {:question "(nil? false)" :answer false}
          {:question "nil" :answer "nil"}
          {:question "(not nil)" :answer true}
+         {:question "(nil? '(nil))" :answer false}
          {:question "(nil? '())" :answer false}
+         {:question "(or nil nil)" :answer nil}
+         {:question "(or nil true)" :answer true}
          {:question "(empty? '())" :answer true}
+         {:question "(empty? [])" :answer true}
+         {:question "(empty? [nil])" :answer false}
          {:question "(seq? '())" :answer true}
          {:question "(seq '())" :answer nil}
+         {:question "(seq [])" :answer nil}
+         {:question "(nil? (seq '()))" :answer true}
+         {:question "(nil? (seq []))" :answer true}
+         {:question "(nil? (first '(nil)))" :answer true}
          {:question "(if '() true false)" :answer true}])
 
 (defn make-questions [num-questions]
-  (vec (take num-questions (map #(merge % {:answered? false :points 100}) qs))))
+  (vec (take num-questions
+             (shuffle (map #(merge % {:answered? false :points 100}) qs)))))
 
 (defn make-level [num-questions]
   {:level 3

@@ -13,7 +13,8 @@
          {:question "(identical? \"hello\" (str \"hell\" \"o\"))" :answer false}])
 
 (defn make-questions [num-questions]
-  (vec (take num-questions (map #(merge % {:answered? false :points 100}) qs))))
+  (vec (take num-questions
+             (shuffle (map #(merge % {:answered? false :points 100}) qs)))))
 
 (defn make-level [num-questions]
   {:level 4

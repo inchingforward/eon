@@ -1,7 +1,7 @@
 (ns eon.level-06
   "Sequences.")
 
-; first, rest, nth (first (rest n)), into get
+; first, rest, nth (first (rest n)), into, get, cons
 
 (defn make-question []
   {:question "test"
