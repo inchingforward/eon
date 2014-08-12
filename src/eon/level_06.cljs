@@ -1,16 +1,22 @@
 (ns eon.level-06
   "Sequences.")
 
-; first, rest, nth (first (rest n)), into, get, cons
-
-(defn make-question []
-  {:question "test"
-   :answer "test"
-   :answered? false
-   :points 100})
+(def qs [{:question "(first '(1 2 3))" :answer 1}
+         {:question "(first (rest '(1 2 3)))" :answer 2}
+         {:question "(nth '(1 2 3) 0)" :answer 1}
+         {:question "(nth '(1 2 3) 1)" :answer 2}
+         {:question "(nth '(1 2 3) 2)" :answer 3}
+         {:question "(nth [1 2 3] 0)" :answer 1}
+         {:question "(nth [1 2 3] 1)" :answer 2}
+         {:question "(nth [1 2 3] 2)" :answer 3}
+         {:question "(empty? '())" :answer true}
+         {:question "(empty? '(1 2 3))" :answer false}
+         {:question "(empty? [])" :answer true}
+         {:question "(empty? [1 2 3])" :answer false}])
 
 (defn make-questions [num-questions]
-  (vec (take num-questions (repeatedly make-question))))
+  (vec (take num-questions
+             (shuffle (map #(merge % {:answered? false :points 100}) qs)))))
 
 (defn make-level [num-questions]
   {:level 6
