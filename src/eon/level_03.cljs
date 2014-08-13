@@ -10,9 +10,6 @@
          {:question "(nil? '())" :answer false}
          {:question "(or nil nil)" :answer nil}
          {:question "(or nil true)" :answer true}
-         {:question "(empty? '())" :answer true}
-         {:question "(empty? [])" :answer true}
-         {:question "(empty? [nil])" :answer false}
          {:question "(seq? '())" :answer true}
          {:question "(seq '())" :answer nil}
          {:question "(seq [])" :answer nil}
