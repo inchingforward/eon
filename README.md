@@ -3,7 +3,7 @@ eon
 
 Evaluate...or naw.  A game that tests your ability to evaluate Clojure forms, written in ClojureScript.
 
-It's very early, but the latest build is pushed [here](http://eon.mikejanger.net).
+Not all levels are complete, but the latest build is pushed [here](http://eon.mikejanger.net).
 
 ## Testing
 

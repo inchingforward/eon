@@ -6,7 +6,7 @@
 
 (def questions-per-level 5)
 
-(def failed-answer-point-decution 10)
+(def failed-answer-point-penalty 10)
 
 (def initial-state
   (merge {:levels (levels/make-levels questions-per-level)}
@@ -15,29 +15,25 @@
 (def game-state (atom initial-state))
 
 (defn end-game []
-  (let [app       (.getElementById js/document "app")
+  (let [app (.getElementById js/document "app")
         game-over (.getElementById js/document "game-over")]
     (set! (-> game-over .-style .-display) "block")
-    (set! (-> app .-style .-display) "none")
-    ))
+    (set! (-> app .-style .-display) "none")))
 
 (defn advance-level []
-  "Increments the current level number."
     (swap! game-state assoc :curr-level (inc (:curr-level @game-state)))
     (swap! game-state assoc :curr-question 0))
 
 (defn advance-question []
-  "Increments the current question number."
   (swap! game-state assoc :curr-question (inc (:curr-question @game-state))))
 
-(defn get-level []
-  "Gets the current level."
+(defn get-current-level []
   (nth (:levels @game-state)
        (:curr-level @game-state)))
 
 (defn get-question []
   "Gets the current question in the current level."
-  (let [level (get-level)]
+  (let [level (get-current-level)]
     (nth (:questions level)
          (:curr-question @game-state))))
 
@@ -50,7 +46,6 @@
     (count (:levels @game-state))))
 
 (defn has-more-questions []
-  "Returns true if there are more unanswred questions in the level."
   (< (:curr-question @game-state)
      (dec questions-per-level)))
 
@@ -68,17 +63,18 @@
       (end-game))))
 
 (defn deduct-points []
-  "Deducts points from the current level's current question."
-  (let [curr-points (:points (get-question))]
+  (let [curr-points (:points (get-question))
+        curr-level (:curr-level @game-state)
+        curr-question (:curr-question @game-state)]
     (swap! game-state
            assoc-in
-           [:levels (:curr-level @game-state) :questions (:curr-question @game-state) :points]
-           (- curr-points failed-answer-point-decution))))
+           [:levels curr-level :questions curr-question :points]
+           (- curr-points failed-answer-point-penalty))))
 
 (defn attempt-answer-question []
   "Tries to answer the question based on the player's answer.  If the
   answer is correct, advances the question (including the level if on
-  the last question.  If the answer is incorrect, deducts points from
+  the last question).  If the answer is incorrect, deducts points from
   the current question."
   (let [actual-answer (str (get-answer))
         answer-input (.getElementById js/document "answer-input")
@@ -110,7 +106,7 @@
        (reduce +)))
 
 (defn game-component []
-  (let [level (get-level)
+  (let [level (get-current-level)
         question (:question (get-question))]
     [:div#app-world
      [:div#level-box
@@ -136,4 +132,3 @@
 (reagent/render-component [game-component] (.getElementById js/document "app"))
 (reagent/render-component [attract-component] (.getElementById js/document "attract"))
 (reagent/render-component [game-over-component] (.getElementById js/document "game-over"))
-
