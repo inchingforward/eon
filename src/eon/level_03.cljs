@@ -8,11 +8,11 @@
          {:question "(not nil)" :answer true}
          {:question "(nil? '(nil))" :answer false}
          {:question "(nil? '())" :answer false}
-         {:question "(or nil nil)" :answer nil}
+         {:question "(or nil nil)" :answer "nil"}
          {:question "(or nil true)" :answer true}
          {:question "(seq? '())" :answer true}
-         {:question "(seq '())" :answer nil}
-         {:question "(seq [])" :answer nil}
+         {:question "(seq '())" :answer "nil"}
+         {:question "(seq [])" :answer "nil"}
          {:question "(nil? (seq '()))" :answer true}
          {:question "(nil? (seq []))" :answer true}
          {:question "(nil? (first '(nil)))" :answer true}
