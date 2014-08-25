@@ -14,4 +14,5 @@
    (level-03/make-level num-questions)
    (level-04/make-level num-questions)
    (level-05/make-level num-questions)
-   (level-06/make-level num-questions)])
+   (level-06/make-level num-questions)
+   (level-07/make-level num-questions)])

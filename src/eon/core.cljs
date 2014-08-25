@@ -4,7 +4,7 @@
 
 (enable-console-print!)
 
-(def questions-per-level 5)
+(def questions-per-level 10)
 
 (def failed-answer-point-penalty 10)
 
