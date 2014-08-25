@@ -17,7 +17,7 @@
          {:question "(count {:one 1 :two 2})" :answer 2}
          {:question "(associative? {:one 1 :two 2})" :answer true}
          {:question "(get-in {:nums {:one 1 :two 2} :letters {:a \"a\" :b \"b\"}} [:nums :two])" :answer 2}
-         {:question "(get-in {:nums {:one 1 :two 2} :letters {:a \"a\" :b \"b\"}} [:letters :a])" :answer "a"}
+         {:question "(get-in {:nums {:one 1 :two 2} :letters {:a \"a\" :b \"b\"}} [:letters :a])" :answer "\"a\""}
          {:question "(get-in {:nums {:one 1 :two 2} :letters {:a \"a\" :b \"b\"}} [:nums :three])" :answer "nil"}
          {:question "(get-in {:nums {:one 1 :two 2} :letters {:a \"a\" :b \"b\"}} [:x :y])" :answer "nil"}])
 

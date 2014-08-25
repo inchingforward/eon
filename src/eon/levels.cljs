@@ -5,7 +5,8 @@
             [eon.level-03 :as level-03]
             [eon.level-04 :as level-04]
             [eon.level-05 :as level-05]
-            [eon.level-06 :as level-06]))
+            [eon.level-06 :as level-06]
+            [eon.level-07 :as level-07]))
 
 (defn make-levels [num-questions]
   "Builds a vector of level maps."
