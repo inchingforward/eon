@@ -1,28 +1,25 @@
 (ns eon.level-02
-  "Boolean Logic.")
+  "Boolean Logic."
+  (:require [eon.question :as q]))
 
-(def qs [{:question "true" :answer true}
-         {:question "false" :answer false}
-         {:question "(not true)" :answer false}
-         {:question "(not false)" :answer true}
-         {:question "(not not)" :answer false}
-         {:question "(and true true)" :answer true}
-         {:question "(and true false)" :answer false}
-         {:question "(and true (not false))" :answer true}
-         {:question "(or true true)" :answer true}
-         {:question "(or true false)" :answer true}
-         {:question "(or false true)" :answer true}
-         {:question "(or false false)" :answer false}
-         {:question "(if true false true)" :answer false}
-         {:question "(if (and true true) 1 2)" :answer 1}
-         {:question "(if (not true) 1 2)" :answer 2}
-         {:question "(or true false)" :answer true}])
-
-(defn make-questions [num-questions]
-  (vec (take num-questions
-             (shuffle (map #(merge % {:answered? false :points 100}) qs)))))
+(def qs [(q/make-question "true" true)
+         (q/make-question "false" false)
+         (q/make-question "(not true)" false)
+         (q/make-question "(not false)" true)
+         (q/make-question "(not not)" false)
+         (q/make-question "(and true true)" true)
+         (q/make-question "(and true false)" false)
+         (q/make-question "(and true (not false))" true)
+         (q/make-question "(or true true)" true)
+         (q/make-question "(or true false)" true)
+         (q/make-question "(or false true)" true)
+         (q/make-question "(or false false)" false)
+         (q/make-question "(if true false true)" false)
+         (q/make-question "(if (and true true) 1 2)" 1)
+         (q/make-question "(if (not true) 1 2)" 2)
+         (q/make-question "(or true false)" true)])
 
 (defn make-level [num-questions]
   {:level 2
    :title "Truthiness"
-   :questions (make-questions num-questions)})
+   :questions (q/shuffle-and-take qs num-questions)})

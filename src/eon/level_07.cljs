@@ -1,31 +1,28 @@
 (ns eon.level-07
-  "Maps.")
+  "Maps."
+  (:require [eon.question :as q]))
 
-(def qs [{:question "(:one {:one 1 :two 2})" :answer 1}
-         {:question "(get {:one 1 :two 2} :one)" :answer 1}
-         {:question "({:one 1 :two 2} :one)" :answer 1}
-         {:question "(:two {:one 1 :two 2})" :answer 2}
-         {:question "(get {:one 1 :two 2} :two)" :answer 2}
-         {:question "({:one 1 :two 2} :two)" :answer 2}
-         {:question "(:three {:one 1 :two 2})" :answer "nil"}
-         {:question "(:three {:one 1 :two 2} 3)" :answer 3}
-         {:question "(contains? {:one 1 :two 2} :one)" :answer true}
-         {:question "(contains? {:one 1 :two 2} :three)" :answer false}
-         {:question "(map? {})" :answer true}
-         {:question "(map? #{})" :answer false}
-         {:question "(count {:one 1})" :answer 1}
-         {:question "(count {:one 1 :two 2})" :answer 2}
-         {:question "(associative? {:one 1 :two 2})" :answer true}
-         {:question "(get-in {:nums {:one 1 :two 2} :letters {:a \"a\" :b \"b\"}} [:nums :two])" :answer 2}
-         {:question "(get-in {:nums {:one 1 :two 2} :letters {:a \"a\" :b \"b\"}} [:letters :a])" :answer "\"a\""}
-         {:question "(get-in {:nums {:one 1 :two 2} :letters {:a \"a\" :b \"b\"}} [:nums :three])" :answer "nil"}
-         {:question "(get-in {:nums {:one 1 :two 2} :letters {:a \"a\" :b \"b\"}} [:x :y])" :answer "nil"}])
-
-(defn make-questions [num-questions]
-  (vec (take num-questions
-             (shuffle (map #(merge % {:answered? false :points 100}) qs)))))
+(def qs [(q/make-question "(:one {:one 1 :two 2))" 1)
+         (q/make-question "(get {:one 1 :two 2) :one)" 1)
+         (q/make-question "({:one 1 :two 2) :one)" 1)
+         (q/make-question "(:two {:one 1 :two 2))" 2)
+         (q/make-question "(get {:one 1 :two 2) :two)" 2)
+         (q/make-question "({:one 1 :two 2) :two)" 2)
+         (q/make-question "(:three {:one 1 :two 2))" "nil")
+         (q/make-question "(:three {:one 1 :two 2) 3)" 3)
+         (q/make-question "(contains? {:one 1 :two 2) :one)" true)
+         (q/make-question "(contains? {:one 1 :two 2) :three)" false)
+         (q/make-question "(map? {))" true)
+         (q/make-question "(map? #{))" false)
+         (q/make-question "(count {:one 1))" 1)
+         (q/make-question "(count {:one 1 :two 2))" 2)
+         (q/make-question "(associative? {:one 1 :two 2))" true)
+         (q/make-question "(get-in {:nums {:one 1 :two 2) :letters {:a \"a\" :b \"b\")) [:nums :two])" 2)
+         (q/make-question "(get-in {:nums {:one 1 :two 2) :letters {:a \"a\" :b \"b\")) [:letters :a])" "\"a\"")
+         (q/make-question "(get-in {:nums {:one 1 :two 2) :letters {:a \"a\" :b \"b\")) [:nums :three])" "nil")
+         (q/make-question "(get-in {:nums {:one 1 :two 2) :letters {:a \"a\" :b \"b\")) [:x :y])" "nil")])
 
 (defn make-level [num-questions]
   {:level 7
    :title "Maps"
-   :questions (make-questions num-questions)})
+   :questions (q/shuffle-and-take qs num-questions)})

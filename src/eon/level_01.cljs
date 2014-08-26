@@ -1,5 +1,6 @@
 (ns eon.level-01
-  "Basic evaluations:  things that evaluate to themselves.")
+  "Basic evaluations:  things that evaluate to themselves."
+  (:require [eon.question :refer [make-question]]))
 
 (def strings ["\"eon\"" "\"clojure\"" "\"functional\"" "\"lisp\""])
 
@@ -16,8 +17,7 @@
 
 (defn make-questions [num-questions]
   (let [questions (get-random-questions num-questions)]
-    (vec (map #(merge {:question % :answer %}
-                      {:answered? false :points 100}) questions))))
+    (vec (map #(make-question % %) questions))))
 
 (defn make-level [num-questions]
   {:level 1
