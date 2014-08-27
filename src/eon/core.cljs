@@ -124,10 +124,10 @@
 
 (defn game-over-component []
   (let [points (calculate-points)]
-  [:div
-   [:h1 "Game over!"]
-   [:p#points (str "Points: " points)]
-   [:p [:a {:href "about.html"} "About"]]]))
+    [:div
+     [:h1 "Game over!"]
+     [:p#points (str "Points: " points)]
+     [:p [:a {:href "about.html"} "About"]]]))
 
 (reagent/render-component [game-component] (.getElementById js/document "app"))
 (reagent/render-component [attract-component] (.getElementById js/document "attract"))
