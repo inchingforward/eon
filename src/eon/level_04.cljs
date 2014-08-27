@@ -15,7 +15,7 @@
          (q/make-question "(= \"hello\" (apply str [\\h \\e \\l \\l \\o]))" true)
          (q/make-question "(= \"hello\" (str \"hell\" \"o\"))" true)
          (q/make-question "(identical? \"hello\" (str \"hell\" \"o\"))" false)
-         (q/make-question "(identical? \"hello\" \"hello\"))" true)])
+         (q/make-question "(identical? \"hello\" \"hello\")" true)])
 
 (defn make-level [num-questions]
   {:level 4
