@@ -135,6 +135,12 @@ a:hover {
   text-align: center;
 }
 
+#missed {
+  color: #68b132;
+  font-size: 20pt;
+  text-align: center;
+}
+
 #about {
   position: absolute;
   top: 10%;

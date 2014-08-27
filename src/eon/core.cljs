@@ -123,10 +123,13 @@
    [:p [:a {:href "about.html"} "About"]]])
 
 (defn game-over-component []
-  (let [points (calculate-points)]
+  (let [points (calculate-points)
+        total-possible (* 1000 (count (:levels @game-state)))
+        missed (/ (- total-possible points) 10)]
     [:div
      [:h1 "Game over!"]
-     [:p#points (str "Points: " points)]
+     [:p#points (str "Points: " points " / " total-possible)]
+     [:p#missed (str "Incorrect Tries: " missed)]
      [:p [:a {:href "about.html"} "About"]]]))
 
 (reagent/render-component [game-component] (.getElementById js/document "app"))
