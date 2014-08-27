@@ -1,25 +1,25 @@
 (ns eon.level-03
   "Nil."
-  (:require [eon.question :as q]))
+  (:require [eon.question :refer [make-question shuffle-and-take]]))
 
-(def qs [(q/make-question "(nil? nil)" true)
-         (q/make-question "(nil? true)" false)
-         (q/make-question "(nil? false)" false)
-         (q/make-question "nil" "nil")
-         (q/make-question "(not nil)" true)
-         (q/make-question "(nil? '(nil))" false)
-         (q/make-question "(nil? '())" false)
-         (q/make-question "(or nil nil)" "nil")
-         (q/make-question "(or nil true)" true)
-         (q/make-question "(seq? '())" true)
-         (q/make-question "(seq '())" "nil")
-         (q/make-question "(seq [])" "nil")
-         (q/make-question "(nil? (seq '()))" true)
-         (q/make-question "(nil? (seq []))" true)
-         (q/make-question "(nil? (first '(nil)))" true)
-         (q/make-question "(if '() true false)" true)])
+(def qs [(make-question "(nil? nil)" true)
+         (make-question "(nil? true)" false)
+         (make-question "(nil? false)" false)
+         (make-question "nil" "nil")
+         (make-question "(not nil)" true)
+         (make-question "(nil? '(nil))" false)
+         (make-question "(nil? '())" false)
+         (make-question "(or nil nil)" "nil")
+         (make-question "(or nil true)" true)
+         (make-question "(seq? '())" true)
+         (make-question "(seq '())" "nil")
+         (make-question "(seq [])" "nil")
+         (make-question "(nil? (seq '()))" true)
+         (make-question "(nil? (seq []))" true)
+         (make-question "(nil? (first '(nil)))" true)
+         (make-question "(if '() true false)" true)])
 
 (defn make-level [num-questions]
   {:level 3
    :title "Nil"
-   :questions (q/shuffle-and-take qs num-questions)})
+   :questions (shuffle-and-take qs num-questions)})
