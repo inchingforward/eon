@@ -2,7 +2,6 @@
   "Sequences."
   (:require [eon.question :as q]))
 
-
 (def qs [(q/make-question "(first '(1 2 3))" 1)
          (q/make-question "(first (rest '(1 2 3)))" 2)
          (q/make-question "(nth '(1 2 3) 0)" 1)
