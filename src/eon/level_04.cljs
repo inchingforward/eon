@@ -5,6 +5,7 @@
 (def qs [(make-question "(= 1 1)" true)
          (make-question "(= 3.14 3.14)" true)
          (make-question "(= 3.14 3.1400)" true)
+         (make-question "(= 1 1.0)" false)
          (make-question "(= 1 (+ 0 1) (- 5 4) (/ 9 9))" true)
          (make-question "(= \"a\" \\a)" false)
          (make-question "(= \"a\" (str \\a))" true)
@@ -13,9 +14,7 @@
          (make-question "(= \"hello\" [\\h \\e \\l \\l \\o])" false)
          (make-question "(= \"hello\" (str [\\h \\e \\l \\l \\o]))" false)
          (make-question "(= \"hello\" (apply str [\\h \\e \\l \\l \\o]))" true)
-         (make-question "(= \"hello\" (str \"hell\" \"o\"))" true)
-         (make-question "(identical? \"hello\" (str \"hell\" \"o\"))" false)
-         (make-question "(identical? \"hello\" \"hello\")" true)])
+         (make-question "(= \"hello\" (str \"hell\" \"o\"))" true)])
 
 (defn make-level [num-questions]
   {:level 4
