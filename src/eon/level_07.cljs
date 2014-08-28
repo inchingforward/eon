@@ -5,7 +5,7 @@
 (def qs [(make-question "(:one {:one 1 :two 2})" 1)
          (make-question "(get {:one 1 :two 2} :one)" 1)
          (make-question "({:one 1 :two 2} :one)" 1)
-         (make-question "(:two {:one 1 :two 2))" 2)
+         (make-question "(:two {:one 1 :two 2})" 2)
          (make-question "(get {:one 1 :two 2} :two)" 2)
          (make-question "({:one 1 :two 2} :two)" 2)
          (make-question "(:three {:one 1 :two 2})" "nil")
