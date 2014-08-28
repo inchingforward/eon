@@ -124,12 +124,13 @@
 
 (defn game-over-component []
   (let [points (calculate-points)
-        total-possible (* 1000 (count (:levels @game-state)))
+        total-possible (* (* 100 questions-per-level)
+                          (count (:levels @game-state)))
         missed (/ (- total-possible points) 10)]
     [:div
      [:h1 "Game over!"]
      [:p#points (str "Points: " points " / " total-possible)]
-     [:p#missed (str "Incorrect Tries: " missed)]
+     [:p#missed (if (zero? missed) "Perfect!" (str "Incorrect Tries: " missed))]
      [:p [:a {:href "about.html"} "About"]]]))
 
 (reagent/render-component [game-component] (.getElementById js/document "app"))

@@ -7,7 +7,7 @@
          (make-question "(= () [])" true)
          (make-question "(= [1 2 3] '(1 2 3))" true)
          (make-question "(= [1 2 3] #{1 2 3))" false)
-         (make-question "(= () [] {))" false)
+         (make-question "(= () [] {})" false)
          (make-question "(= [1 2 3] [(+ 1 0) (+ 2 0) (+ 3 0)])" true)
          (make-question "(= (cons 1 (cons 2 (cons 3 '()))) (1 2 3))" true)
          (make-question "(= (cons 1 (cons 2 (cons 3 '()))) [1 2 3])" true)

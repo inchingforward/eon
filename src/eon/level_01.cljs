@@ -4,11 +4,11 @@
 
 (def strings ["\"eon\"" "\"clojure\"" "\"functional\"" "\"lisp\""])
 
-(def keywords [:color :year :price :title :name])
+(def keywords [:color :year :price :title :name :a :b :c :keyword])
 
-(def characters ["\\a" "\\b" "\\c" "\\d" "\\e"])
+(def characters ["\\a" "\\b" "\\c" "\\d" "\\e" "\\f" "\\g" "\\h"])
 
-(def numbers [42 23 2014 3.14 13])
+(def numbers [42 23 2014 3.14 13 1 0])
 
 (defn get-random-questions [num-questions]
   (->> (concat strings keywords characters numbers)

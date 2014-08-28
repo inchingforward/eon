@@ -16,7 +16,7 @@
          (make-question "(map? #{})" false)
          (make-question "(count {:one 1))" 1)
          (make-question "(count {:one 1 :two 2))" 2)
-         (make-question "(associative? {:one 1 :two 2))" true)
+         (make-question "(associative? {:one 1 :two 2})" true)
          (make-question "(get-in {:nums {:one 1 :two 2) :letters {:a \"a\" :b \"b\")) [:nums :two])" 2)
          (make-question "(get-in {:nums {:one 1 :two 2) :letters {:a \"a\" :b \"b\")) [:letters :a])" "\"a\"")
          (make-question "(get-in {:nums {:one 1 :two 2) :letters {:a \"a\" :b \"b\")) [:nums :three])" "nil")
