@@ -6,7 +6,6 @@
          (make-question "false" false)
          (make-question "(not true)" false)
          (make-question "(not false)" true)
-         (make-question "(not not)" false)
          (make-question "(and true true)" true)
          (make-question "(and true false)" false)
          (make-question "(and true (not false))" true)
