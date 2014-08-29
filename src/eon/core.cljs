@@ -110,7 +110,8 @@
         question (:question (get-question))]
     [:div#app-world
      [:div#level-box
-      [:h1 (str (:level level) ": " (:title level))]]
+      [:h1.level (str (:level level) ": " (:title level))]
+      [:h1.question-num (str (inc (:curr-question @game-state)) "/" questions-per-level)]]
      [:div#question-box
       [:h2#question-display (str question)]]
      [:div#answer-box

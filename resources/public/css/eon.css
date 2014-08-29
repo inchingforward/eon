@@ -38,12 +38,20 @@ a:hover {
 
 #level-box {}
 
-#level-box h1 {
+#level-box h1.level {
   font-size: 23pt;
   color: #5881d8;
+  float: left;
+}
+
+#level-box h1.question-num {
+  font-size: 23pt;
+  color: #5881d8;
+  float: right;
 }
 
 #question-box {
+  clear: both;
   height: 200px;
 }
 
