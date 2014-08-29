@@ -2,7 +2,7 @@
   "Basic evaluations:  things that evaluate to themselves."
   (:require [eon.question :refer [make-question]]))
 
-(def strings ["\"eon\"" "\"clojure\"" "\"functional\"" "\"lisp\""])
+(def strings ["\"eon\"" "\"clojure\"" "\"functional\"" "\"lisp\"" "\"quiz\""])
 
 (def keywords [:color :year :price :title :name :a :b :c :keyword])
 
