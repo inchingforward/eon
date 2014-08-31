@@ -19,12 +19,21 @@
          (make-question "(nth [:a :b :c] 0)" :a)
          (make-question "(nth [:a :b :c] 1)" :b)
          (make-question "(nth [:a :b :c] 2)" :c)
+         (make-question "(peek [1 2 3])" 3)
+         (make-question "(peek '(1 2 3))" 1)
+         (make-question "(get [1 2 3] 0)" 1)
+         (make-question "(get [1 2 3] 1)" 2)
+         (make-question "(get [1 2 3] 2)" 3)
          (make-question "(empty? '())" true)
          (make-question "(empty? '(nil))" false)
          (make-question "(empty? '(1 2 3))" false)
          (make-question "(empty? [])" true)
          (make-question "(empty? [nil])" false)
-         (make-question "(empty? [1 2 3])" false)])
+         (make-question "(empty? [1 2 3])" false)
+         (make-question "(sequential? [])" true)
+         (make-question "(sequential? '())" true)
+         (make-question "(sequential? #{})" false)
+         (make-question "(sequential? {})" false)])
 
 (defn make-level [num-questions]
   {:level 6

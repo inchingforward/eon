@@ -10,6 +10,9 @@
          (make-question "({:a 1 :b 2} :b)" 2)
          (make-question "(:c {:a 1 :b 2})" "nil")
          (make-question "(:c {:a 1 :b 2} 3)" 3)
+         (make-question "(:a (hash-map :a 1 :b 2))" 1)
+         (make-question "(:b (hash-map :a 1 :b 2))" 2)
+         (make-question "(:c (hash-map :a 1 :b 2))" nil)
          (make-question "(contains? {:a 1 :b 2} :a)" true)
          (make-question "(contains? {:a 1 :b 2} :c)" false)
          (make-question "(map? {})" true)
@@ -19,10 +22,9 @@
          (make-question "(count {:a 1})" 1)
          (make-question "(count {:a 1 :b 2})" 2)
          (make-question "(associative? {:a 1 :b 2})" true)
-         (make-question "(get-in {:x {:a 1 :b 2} :y {:a \"a\" :b \"b\"}} [:x :b])" 2)
-         (make-question "(get-in {:x {:a 1 :b 2} :y {:a \"a\" :b \"b\"}} [:y :a])" "\"a\"")
-         (make-question "(get-in {:x {:a 1 :b 2} :y {:a \"a\" :b \"b\"}} [:y :c])" "nil")
-         (make-question "(get-in {:x {:a 1 :b 2} :y {:a \"a\" :b \"b\"}} [:x :y])" "nil")])
+         (make-question "(get-in {:x {:a 1} :y {:a \"a\"}} [:x :a])" 1)
+         (make-question "(get-in {:x {:a 1} :y {:a \"a\"}} [:y :a])" "\"a\"")
+         (make-question "(get-in {:x {:a 1} :y {:a \"a\"}} [:x :y])" "nil")])
 
 (defn make-level [num-questions]
   {:level 7
