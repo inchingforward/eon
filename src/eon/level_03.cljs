@@ -11,15 +11,13 @@
          (make-question "(nil? '())" false)
          (make-question "(or nil nil)" "nil")
          (make-question "(or nil true)" true)
-         (make-question "(seq '())" "nil")
-         (make-question "(seq [])" "nil")
-         (make-question "(nil? (seq '()))" true)
-         (make-question "(nil? (seq []))" true)
          (make-question "(nil? (first '(nil)))" true)
          (make-question "(nil? (first []))" true)
+         (make-question "(if nil true false)" false)
          (make-question "(if '() true false)" true)
          (make-question "(if [] true false)" true)
-         (make-question "(if {} true false)" true)])
+         (make-question "(if {} true false)" true)
+         (make-question "(if \"\" true false)" true)])
 
 (defn make-level [num-questions]
   {:level 3

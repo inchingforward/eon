@@ -33,7 +33,11 @@
          (make-question "(sequential? [])" true)
          (make-question "(sequential? '())" true)
          (make-question "(sequential? #{})" false)
-         (make-question "(sequential? {})" false)])
+         (make-question "(sequential? {})" false)
+         (make-question "(list? '())" true)
+         (make-question "(list? [])" false)
+         (make-question "(vector? [])" true)
+         (make-question "(vector? '())" false)])
 
 (defn make-level [num-questions]
   {:level 6

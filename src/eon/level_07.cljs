@@ -12,7 +12,7 @@
          (make-question "(:c {:a 1 :b 2} 3)" 3)
          (make-question "(:a (hash-map :a 1 :b 2))" 1)
          (make-question "(:b (hash-map :a 1 :b 2))" 2)
-         (make-question "(:c (hash-map :a 1 :b 2))" nil)
+         (make-question "(:c (hash-map :a 1 :b 2))" "nil")
          (make-question "(contains? {:a 1 :b 2} :a)" true)
          (make-question "(contains? {:a 1 :b 2} :c)" false)
          (make-question "(map? {})" true)

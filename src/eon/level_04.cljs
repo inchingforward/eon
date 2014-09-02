@@ -16,7 +16,7 @@
          (make-question "(= \\a (char 97)" true)
          (make-question "(= :a \"a\")" false)
          (make-question "(= :a (keyword \"a\"))" true)
-         (make-question "(= \\a (first \"a\"))" true)
+         (make-question "(= \\a (first \"abc\"))" true)
          (make-question "(= 'a \"a\")" false)
          (make-question "(= 'a (symbol \"a\"))" true)
          (make-question "(= 'a (symbol (str \\a)))" true)
