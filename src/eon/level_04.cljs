@@ -13,7 +13,7 @@
          (make-question "(= 1 (+ 0 1) (- 5 4) (/ 9 9))" true)
          (make-question "(= \"a\" \\a)" false)
          (make-question "(= \"a\" (str \\a))" true)
-         (make-question "(= \\a (char 97)" true)
+         (make-question "(= \\a (char 97))" true)
          (make-question "(= :a \"a\")" false)
          (make-question "(= :a (keyword \"a\"))" true)
          (make-question "(= \\a (first \"abc\"))" true)
