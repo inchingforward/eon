@@ -5,11 +5,11 @@
   :license {:name "MIT License"
             :url "http://www.opensource.org/licenses/MIT"}
 
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2202"]
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [org.clojure/clojurescript "1.9.225"]
                  [reagent "0.4.2"]]
 
-  :plugins [[lein-cljsbuild "1.0.3"]
+  :plugins [[lein-cljsbuild "1.1.4"]
             [com.cemerick/clojurescript.test "0.2.3"]]
 
   :cljsbuild {
